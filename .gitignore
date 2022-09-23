@@ -5,9 +5,9 @@
 /.pnp
 .pnp.js
 
-hello.js
-public
-readme.md 
+/hello.js
+/public
+/readme.md 
 
 
 # testing

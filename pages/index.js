@@ -1,21 +1,27 @@
 import Head from 'next/head'
 import Image from 'next/image'
+import Link from 'next/link';
 import { useState, useEffect } from 'react';
 import styles from '../styles/Home.module.css'
 
-const defaultEndpoint = "http://localhost:5000/series"
 
-export async function getServerSideProps() {
-  const res = await fetch(defaultEndpoint);
+
+
+export async function getServerSideProps({ query }) {
+  const page = Number(query.page) || 1;
+  const defaultEnpoint = `http://localhost:5000/series?page=${page}&limit=6`
+  const res = await fetch(defaultEnpoint);
   const data = await res.json();
-  return { props: { data } }
+  return { props: { page, data } }
 }
 
 
-export default function Home({ data }) {
-  const { series = [] } = data || {}
+
+export default function Home({ data, page }) {
+  const { result = [] } = data || {}
+  const series = result.series;
   const [input, setInput] = useState("")
-  const movieSeries = series.filter( (series) => series.name.toLowerCase().includes(input))
+  const movieSeries = series.filter((series) => series.name.toLowerCase().includes(input))
   return (
     <>
       <section className={styles.section}>
@@ -35,8 +41,8 @@ export default function Home({ data }) {
       <div className={styles.container}>
         <main className={styles.main}>
           <form>
-          <input value={input} onChange={(e) => setInput(e.target.value)} name='query' type='search' />
-          <button>Search</button>
+            <input value={input} onChange={(e) => setInput(e.target.value)} name='query' type='search' />
+            <button>Search</button>
           </form>
           <ul className={styles.grid}>
             {movieSeries.map((series) => {
@@ -59,6 +65,10 @@ export default function Home({ data }) {
             })}
 
           </ul>
+          <div>
+            {result.next && <Link href={`/?page=${result.next.page}`}><button className={styles.button}> Next Page -{result.next.page} </button></Link>} 
+            {result.previous && <Link href={`/?page=${result.previous.page}`}><button className={styles.button}> Previous Page -{result.previous.page} </button></Link>}
+          </div>
         </main>
 
         <footer className={styles.footer}>

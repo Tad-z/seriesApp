@@ -24,13 +24,29 @@ export default function Home({ data, page }) {
   const movieSeries = series.filter((series) => series.name.toLowerCase().includes(input))
   return (
     <>
+     <header>
+      <div className={styles.navbar}>
+        <div>
+          <h2>Best Series</h2>
+        </div>
+        <div class="nav-links">
+          <ul>
+            <li>
+              <a href="#" target="_blank"
+                >Add Your Favourite Series</a
+              >
+            </li>
+          </ul>
+        </div>
+      </div>
+    </header>
       <section className={styles.section}>
         <h1 className={styles.title}>
           Welcome to my Website
         </h1>
 
         <p className={styles.description}>
-          This website showcases some of the greatest series i've ever watched
+          This website showcases some of the greatest series ever watched by man
         </p>
       </section>
       <Head>
@@ -66,8 +82,8 @@ export default function Home({ data, page }) {
 
           </ul>
           <div>
-            {result.next && <Link href={`/?page=${result.next.page}`}><button className={styles.button}> Next Page -{result.next.page} </button></Link>} 
             {result.previous && <Link href={`/?page=${result.previous.page}`}><button className={styles.button}> Previous Page -{result.previous.page} </button></Link>}
+            {result.next && <Link href={`/?page=${result.next.page}`}><button className={styles.button}> Next Page -{result.next.page} </button></Link>} 
           </div>
         </main>
 

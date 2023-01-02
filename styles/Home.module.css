@@ -23,6 +23,10 @@
   display: flex;
 }
 
+.navbar p {
+  font-weight: bold;
+}
+
 .navbar ul li {
   margin-left: 1rem;
 }
@@ -30,7 +34,7 @@
 .navbar a {
   color: #303030;
   text-decoration: none;
-  font-size: 1.2rem;
+  font-size: 1rem;
 }
 
 .navbar a:hover {

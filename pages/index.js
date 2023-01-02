@@ -27,12 +27,12 @@ export default function Home({ data, page }) {
      <header>
       <div className={styles.navbar}>
         <div>
-          <h2>Best Series</h2>
+          <p>Best Series</p>
         </div>
         <div class="nav-links">
           <ul>
             <li>
-              <a href="#" target="_blank"
+              <a href="/addSeries" target="_blank"
                 >Add Your Favourite Series</a
               >
             </li>
@@ -83,7 +83,7 @@ export default function Home({ data, page }) {
           </ul>
           <div>
             {result.previous && <Link href={`/?page=${result.previous.page}`}><button className={styles.button}> Previous Page -{result.previous.page} </button></Link>}
-            {result.next && <Link href={`/?page=${result.next.page}`}><button className={styles.button}> Next Page -{result.next.page} </button></Link>} 
+            {/* {result.next && <Link href={`/?page=${result.next.page}`}><button className={styles.button}> Next Page -{result.next.page} </button></Link>}  */}
           </div>
         </main>
 

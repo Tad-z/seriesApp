@@ -32,7 +32,7 @@ export default function Home({ data, page }) {
         <div class="nav-links">
           <ul>
             <li>
-              <a href="/addSeries" target="_blank"
+              <a href="/addSeries"
                 >Add Your Favourite Series</a
               >
             </li>

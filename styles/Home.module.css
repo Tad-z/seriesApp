@@ -3,12 +3,13 @@
 }
 .section {
   padding: 2rem 2rem;
-  background-color: #303030;
+  background-color: whitesmoke;
+  color: #1f1f1f;
 }
 
 .navbar {
-  background: #eaeaea;
-  color: #303030;
+  background: whitesmoke;
+  color: #1f1f1f;
   padding: auto;
   padding-left: 1rem;
   padding-right: 1rem;
@@ -25,6 +26,7 @@
 
 .navbar p {
   font-weight: bold;
+  font-size: 1.2rem;
 }
 
 .navbar ul li {
@@ -32,9 +34,10 @@
 }
 
 .navbar a {
-  color: #303030;
+  color: #1f1f1f;
   text-decoration: none;
-  font-size: 1rem;
+  font-weight: bold;
+  font-size: 1.2rem;
 }
 
 .navbar a:hover {
@@ -85,7 +88,9 @@
 .title {
   margin: 0;
   line-height: 1.15;
-  font-size: 4rem;
+  font-size: 5rem;
+  padding-top: 3rem;
+  padding-bottom: 3rem;
 }
 
 .title,
@@ -209,6 +214,14 @@
     font-size: 2.5rem;
   }
 
+  .navbar a{
+    font-size: 0.9rem;
+  }
+
+  .navbar p{
+    font-size: 0.9rem;
+  }
+
   .title,
   .description {
     text-align: center;
@@ -240,5 +253,24 @@
   }
   .logo img {
     filter: invert(1);
+  }
+  .button {
+    padding: 4px;
+    margin: 1em 1em 0 0;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    border-radius: 5px;
+    background-color: rgb(44, 44, 48);
+    color: #fff;
+    border: none;
+    font-size: 0.8em;
+    width: 10em;
+    height: 2em;
+  }
+  
+  .button:hover,
+  .button:focus,
+  .button:active {
+    background-color: #31537a;
   }
 }

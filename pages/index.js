@@ -27,7 +27,7 @@ export default function Home({ data, page }) {
      <header>
       <div className={styles.navbar}>
         <div>
-          <p>Best Series</p>
+          <p>Best Series App</p>
         </div>
         <div class="nav-links">
           <ul>
@@ -42,12 +42,12 @@ export default function Home({ data, page }) {
     </header>
       <section className={styles.section}>
         <h1 className={styles.title}>
-          Welcome to my Website
+          The Best Series API
         </h1>
 
-        <p className={styles.description}>
+        {/* <p className={styles.description}>
           This website showcases some of the greatest series ever watched by man
-        </p>
+        </p> */}
       </section>
       <Head>
         <title>SeriesApp</title>
@@ -83,7 +83,7 @@ export default function Home({ data, page }) {
           </ul>
           <div>
             {result.previous && <Link href={`/?page=${result.previous.page}`}><button className={styles.button}> Previous Page -{result.previous.page} </button></Link>}
-            {/* {result.next && <Link href={`/?page=${result.next.page}`}><button className={styles.button}> Next Page -{result.next.page} </button></Link>}  */}
+            {result.next && <Link href={`/?page=${result.next.page}`}><button className={styles.button}> Next Page -{result.next.page} </button></Link>} 
           </div>
         </main>
 

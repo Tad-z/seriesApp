@@ -81,6 +81,35 @@
     border-radius: 3px;
 }
 
+.series {
+    padding: 10px 20px;
+    margin-top: 10px;
+}
+
+.seriesButton {
+    border-radius: 6px;
+    width: 11rem;
+    background: linear-gradient(
+        130deg,
+        #24234d,
+        #191738
+    );
+    margin: 0.25rem;
+    padding: 0.5rem;
+    border: none;
+    box-shadow: 0 0 0 2px #24234d;
+    outline: none;
+}
+
+.back-to-series-button:active {
+    background: linear-gradient(
+        130deg,
+        #24234d,
+        #191738
+    );
+    transform: translateY(2px);
+}
+
 .button:hover{
     background: linear-gradient(
         130deg,

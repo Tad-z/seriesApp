@@ -1,5 +1,6 @@
 import React from "react";
 import Head from "next/head";
+import Link from "next/link";
 import { useForm } from "react-hook-form";
 import styles from "../styles/addSeries.module.css";
 import { postServerData } from "./api/helper";
@@ -8,32 +9,36 @@ export default function addSeries() {
   const {
     handleSubmit,
     register,
-    formState: { errors },
+    reset
   } = useForm();
 
-  const submitHandler = async ({ image, name, genre, FavCast, status }) => {
-    console.log(image);
+  // const form = document.getElementById("form");
+  const submitHandler = async (data) => {
     try {
       const formData = new FormData();
-      formData.append("image", image);
-      formData.append("name", name);
-      formData.append("genre", genre);
-      formData.append("FavCast", FavCast);
-      formData.append("status", status);
-  
-      const result = await postServerData("http://localhost:5000/series", formData);
-      if (result) {
-        console.log("success");
+      formData.append("image", data.image[0]);
+      formData.append("name", data.name);
+      formData.append("genre", data.genre);
+      formData.append("FavCast", data.FavCast);
+      formData.append("status", data.status);
+      const response = await postServerData(
+        "http://localhost:5000/series",
+        formData
+      );
+      reset();
+      console.log(response);
+      if (response) {
+        alert("Series added successfully");
       } else {
-        console.log("failed");
+        alert("Error adding series");
       }
-      console.log(result);
+      
     } catch (error) {
       console.log(error);
+      alert("Error adding series1");
     }
   };
-  
-  
+
   return (
     <>
       <Head>
@@ -41,10 +46,20 @@ export default function addSeries() {
         <meta name="Series" content="Showcasing series" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
+      <div className={styles.series}>
+        <Link href="/">
+          <button className={styles.seriesButton}>Back to series</button>
+        </Link>
+      </div>
+
       <div className={styles.container}>
         <h1 className={styles.h1}>SHARE YOUR FAVOURITE SERIES</h1>
         <p className={styles.p}>Fill the form</p>
-        <form className={styles.form} onSubmit={handleSubmit(submitHandler)}>
+        <form
+          id="form"
+          className={styles.form}
+          onSubmit={handleSubmit(submitHandler)}
+        >
           <div className={styles.row}>
             <div className={styles.column}>
               <label className={styles.label} htmlFor="image">
@@ -90,7 +105,7 @@ export default function addSeries() {
               </label>
               <input
                 {...register("status", { required: true })}
-                className={styles.input} 
+                className={styles.input}
                 type="text"
                 id="status"
                 placeholder="Is it ongoing or finished"
@@ -103,7 +118,7 @@ export default function addSeries() {
                 Favourite Character(s)
               </label>
               <input
-                {...register("character", { required: true })}
+                {...register("FavCast", { required: true })}
                 className={styles.input}
                 type="text"
                 id="FavCast"

@@ -40,7 +40,7 @@ export default function addSeries() {
   };
 
   return (
-    <>
+    <div className={styles.body}>
       <Head>
         <title>AddSeries</title>
         <meta name="Series" content="Showcasing series" />
@@ -131,6 +131,6 @@ export default function addSeries() {
           </button>
         </form>
       </div>
-    </>
+    </div>
   );
 }

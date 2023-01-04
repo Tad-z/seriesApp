@@ -1,5 +1,6 @@
 .container {
   padding: 0 2rem;
+  font-family: "Poppins",sans-serif;
 }
 .section {
   padding: 2rem 2rem;
@@ -50,6 +51,7 @@
   flex: 1;
   display: flex;
   flex-direction: column;
+  font-family: "Poppins",sans-serif;
   justify-content: flex-start;
   align-items: center;
 }
@@ -88,6 +90,7 @@
 .title {
   margin: 0;
   line-height: 1.15;
+  font-family: "Poppins",sans-serif;
   font-size: 5rem;
   padding-top: 3rem;
   padding-bottom: 3rem;
@@ -127,6 +130,7 @@
   text-decoration: none;
   border: 1px solid #eaeaea;
   border-radius: 10px;
+  font-family: "Poppins",sans-serif;
   transition: color 0.15s ease, border-color 0.15s ease;
   height: 600px;
   width: 300px;
@@ -237,23 +241,6 @@
     margin-bottom: 0.5em;
   }
 
-  .search input,
-  .search button {
-    width: 100%;
-  }
-}
-
-@media (prefers-color-scheme: dark) {
-  .card,
-  .footer {
-    border-color: #222;
-  }
-  .code {
-    background: #111;
-  }
-  .logo img {
-    filter: invert(1);
-  }
   .button {
     padding: 4px;
     margin: 1em 1em 0 0;
@@ -273,4 +260,23 @@
   .button:active {
     background-color: #31537a;
   }
+
+  .search input,
+  .search button {
+    width: 100%;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  .card,
+  .footer {
+    border-color: #222;
+  }
+  .code {
+    background: #111;
+  }
+  .logo img {
+    filter: invert(1);
+  }
+  
 }

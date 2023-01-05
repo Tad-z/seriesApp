@@ -3,7 +3,8 @@ import Head from "next/head";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
 import styles from "../styles/addSeries.module.css";
-import { postServerData } from "./api/helper";
+import { getError, postServerData } from "./api/helper";
+
 
 export default function addSeries() {
   const {
@@ -25,17 +26,16 @@ export default function addSeries() {
         "http://localhost:5000/series",
         formData
       );
-      reset();
-      console.log(response);
       if (response) {
         alert("Series added successfully");
       } else {
         alert("Error adding series");
       }
+      reset();
       
     } catch (error) {
       console.log(error);
-      alert("Error adding series1");
+      alert(getError(error));
     }
   };
 
@@ -54,7 +54,7 @@ export default function addSeries() {
 
       <div className={styles.container}>
         <h1 className={styles.h1}>SHARE YOUR FAVOURITE SERIES</h1>
-        <p className={styles.p}>Fill the form</p>
+        <p className={styles.p}>Fill the form and make sure values entered are true</p>
         <form
           id="form"
           className={styles.form}

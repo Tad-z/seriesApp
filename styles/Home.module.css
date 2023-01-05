@@ -99,6 +99,7 @@
 .title,
 .description {
   text-align: center;
+  color: #1f1f1f;
 }
 
 .description {
@@ -219,11 +220,11 @@
   }
 
   .navbar a{
-    font-size: 0.9rem;
+    font-size: 1rem;
   }
 
   .navbar p{
-    font-size: 0.9rem;
+    font-size: 1rem;
   }
 
   .title,

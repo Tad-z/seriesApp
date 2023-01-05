@@ -12,8 +12,8 @@
     width: 100vw;
     background: linear-gradient(
         135deg,
-        #6f6df4,
-        #4c46f5
+        #1f1f1f,
+        #161616
     );
 }
 .container{
@@ -75,8 +75,8 @@
     padding: 10px 20px;
     background: linear-gradient(
         130deg,
-        #6f6df4,
-        #4c46f5
+        #313030,
+        #252525
     );
     color: #ffffff;
     border-radius: 3px;
@@ -92,8 +92,8 @@
     width: 11rem;
     background: linear-gradient(
         120deg,
-        #2d2c5f,
-        #252252
+        #313030,
+        #252525
     );
     margin: 0.25rem;
     padding: 0.5rem;
@@ -105,15 +105,15 @@
 .seriesButton:hover {
     background: linear-gradient(
         120deg,
-        #252252,
-        #2d2c5f
+        #353535,
+        #1b1b1b
     );
 }
 .seriesButton:active {
     background: linear-gradient(
         120deg,
-        #2d2c5f,
-        #252252
+        #313030,
+        #252525
     );
     transform: translateY(2px);
 }
@@ -121,16 +121,16 @@
 .button:hover{
     background: linear-gradient(
         130deg,
-        #4c46f5,
-        #6f6df4
+        #353535,
+        #1b1b1b
     );
 
 }
 .button:active{
     background: linear-gradient(
         130deg,
-        #4c46f5,
-        #6f6df4
+        #313030,
+        #252525
     );
     transform: translateY(2px);
 }

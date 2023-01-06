@@ -3,6 +3,7 @@ import Head from "next/head";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
 import styles from "../styles/addSeries.module.css";
+import toast, { Toaster } from 'react-hot-toast';
 import { getError, postServerData } from "./api/helper";
 
 
@@ -27,20 +28,21 @@ export default function addSeries() {
         formData
       );
       if (response) {
-        alert("Series added successfully");
+        toast.success('Series added successfully');
       } else {
-        alert("Error adding series");
+        toast.error('Something went wrong');
       }
       reset();
       
     } catch (error) {
       console.log(error);
-      alert(getError(error));
+      toast.error(getError(error));
     }
   };
 
   return (
     <div className={styles.body}>
+      <Toaster />
       <Head>
         <title>AddSeries</title>
         <meta name="Series" content="Showcasing series" />

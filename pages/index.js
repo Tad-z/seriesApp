@@ -63,12 +63,21 @@ export default function Home({ data, page }) {
           <ul className={styles.grid}>
             {movieSeries.map((series) => {
               const { _id, image, name, genre, FavCast, status } = series;
+              // splits the name string into an array of strings
+              // whenever a blank space is encountered
+              // loops through each string in the array and capitalize the first letter
+              // joins the array of strings into a single string
+              const arr = name.split(" ");
+              for (var i = 0; i < arr.length; i++) {
+                arr[i] = arr[i].charAt(0).toUpperCase() + arr[i].slice(1);
+              }
+              const name1 = arr.join(" ");
 
               return (
                 <li key={_id} className={styles.card}>
                   <a href="#">
                     <img className={styles.image} src={`http://localhost:5000/${image}`} alt={name} />
-                    <h2>{name} &rarr;</h2>
+                    <h2>{name1} &rarr;</h2>
                     <p1>Genre:</p1>
                     <p>{genre}</p>
                     <p1>Favourite Cast:</p1>

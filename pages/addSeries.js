@@ -91,7 +91,7 @@ export default function addSeries() {
           <div className={styles.row}>
             <div className={styles.column}>
               <label className={styles.label} htmlFor="genre">
-                Series Genre
+                Series Genre(s)
               </label>
               <input
                 {...register("genre", { required: true })}

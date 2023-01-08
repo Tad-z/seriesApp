@@ -80,7 +80,7 @@ export default function Home({ data, page }) {
                     <h2>{name1} &rarr;</h2>
                     <p1>Genre:</p1>
                     <p>{genre}</p>
-                    <p1>Favourite Cast:</p1>
+                    <p1>Favourite Character(s):</p1>
                     <p>{FavCast}</p>
                     <p1>Status:</p1>
                     <p>{status}</p>

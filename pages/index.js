@@ -26,7 +26,7 @@ export default function Home({ data, page }) {
           <div>
             <p>Best Series App</p>
           </div>
-          <div class="nav-links">
+          <div>
             <ul>
               <li>
                 <a href="/addSeries">Add Your Favourite Series</a>

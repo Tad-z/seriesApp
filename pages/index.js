@@ -29,7 +29,7 @@ export default function Home({ data, page }) {
           <div>
             <ul>
               <li>
-                <Link href="/addSeries">Add Your Favourite Series</Link>
+                <a href="/addSeries">Add Your Favourite Series</a>
               </li>
             </ul>
           </div>

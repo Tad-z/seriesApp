@@ -74,7 +74,7 @@ export default function Home({ data, page }) {
               return (
                 <li key={_id} className={styles.card}>
                   <a href="#">
-                    <Image
+                    <img
                       className={styles.image}
                       src={`https://series-api-973j.onrender.com/${image}`}
                       alt={name}

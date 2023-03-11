@@ -29,7 +29,7 @@ export default function Home({ data, page }) {
           <div>
             <ul>
               <li>
-                <a href="/addSeries">Add Your Favourite Series</a>
+                <Link href="/addSeries">Add Your Favourite Series</Link>
               </li>
             </ul>
           </div>
@@ -70,11 +70,11 @@ export default function Home({ data, page }) {
                 arr[i] = arr[i].charAt(0).toUpperCase() + arr[i].slice(1);
               }
               const name1 = arr.join(" ");
-
+              
               return (
                 <li key={_id} className={styles.card}>
                   <a href="#">
-                    <img
+                    <Image
                       className={styles.image}
                       src={`https://series-api-973j.onrender.com/${image}`}
                       alt={name}

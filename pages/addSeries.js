@@ -7,7 +7,7 @@ import toast, { Toaster } from 'react-hot-toast';
 import { getError, postServerData } from "./api/helper";
 
 
-export default function addSeries() {
+export default function AddSeries() {
   const {
     handleSubmit,
     register,

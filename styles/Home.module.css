@@ -11,9 +11,8 @@
 .navbar {
   background: whitesmoke;
   color: #1f1f1f;
-  padding: auto;
-  padding-left: 1rem;
-  padding-right: 1rem;
+  padding-left: 2rem;
+  padding-right: 2rem;
   margin: auto;
   display: flex;
   justify-content: space-between;

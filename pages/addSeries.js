@@ -24,7 +24,7 @@ export default function addSeries() {
       formData.append("FavCast", data.FavCast);
       formData.append("status", data.status);
       const response = await postServerData(
-        "http://localhost:5000/series",
+        `${process.env.REACT_SERVER_HOSTNAME}/series`,
         formData
       );
       if (response) {

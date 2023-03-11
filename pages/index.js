@@ -1,49 +1,42 @@
-import Head from 'next/head'
-import Image from 'next/image'
-import Link from 'next/link';
-import { useState, useEffect } from 'react';
-import styles from '../styles/Home.module.css'
-
-
-
+import Head from "next/head";
+import Image from "next/image";
+import Link from "next/link";
+import { useState, useEffect } from "react";
+import styles from "../styles/Home.module.css";
 
 export async function getServerSideProps({ query }) {
   const page = Number(query.page) || 1;
-  const defaultEnpoint = `http://localhost:5000/series?page=${page}&limit=6`
+  const defaultEnpoint = `${process.env.REACT_SERVER_HOSTNAME}/series?page=${page}&limit=6`;
   const res = await fetch(defaultEnpoint);
   const data = await res.json();
-  return { props: { page, data } }
+  return { props: { page, data } };
 }
 
-
-
 export default function Home({ data, page }) {
-  const { result = [] } = data || {}
+  const { result = [] } = data || {};
   const series = result.series;
-  const [input, setInput] = useState("")
-  const movieSeries = series.filter((series) => series.name.toLowerCase().includes(input))
+  const [input, setInput] = useState("");
+  const movieSeries = series.filter((series) =>
+    series.name.toLowerCase().includes(input)
+  );
   return (
     <>
-     <header>
-      <div className={styles.navbar}>
-        <div>
-          <p>Best Series App</p>
+      <header>
+        <div className={styles.navbar}>
+          <div>
+            <p>Best Series App</p>
+          </div>
+          <div class="nav-links">
+            <ul>
+              <li>
+                <a href="/addSeries">Add Your Favourite Series</a>
+              </li>
+            </ul>
+          </div>
         </div>
-        <div class="nav-links">
-          <ul>
-            <li>
-              <a href="/addSeries"
-                >Add Your Favourite Series</a
-              >
-            </li>
-          </ul>
-        </div>
-      </div>
-    </header>
+      </header>
       <section className={styles.section}>
-        <h1 className={styles.title}>
-          The Best Series API
-        </h1>
+        <h1 className={styles.title}>The Best Series API</h1>
 
         {/* <p className={styles.description}>
           This website showcases some of the greatest series ever watched by man
@@ -57,7 +50,12 @@ export default function Home({ data, page }) {
       <div className={styles.container}>
         <main className={styles.main}>
           <form>
-            <input value={input} onChange={(e) => setInput(e.target.value)} name='query' type='search' />
+            <input
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              name="query"
+              type="search"
+            />
             <button>Search</button>
           </form>
           <ul className={styles.grid}>
@@ -76,7 +74,11 @@ export default function Home({ data, page }) {
               return (
                 <li key={_id} className={styles.card}>
                   <a href="#">
-                    <img className={styles.image} src={`http://localhost:5000/${image}`} alt={name} />
+                    <img
+                      className={styles.image}
+                      src={`${process.env.REACT_SERVER_HOSTNAME}/${image}`}
+                      alt={name}
+                    />
                     <h2>{name1} &rarr;</h2>
                     <p1>Genre:</p1>
                     <p>{genre}</p>
@@ -86,13 +88,26 @@ export default function Home({ data, page }) {
                     <p>{status}</p>
                   </a>
                 </li>
-              )
+              );
             })}
-
           </ul>
           <div>
-            {result.previous && <Link href={`/?page=${result.previous.page}`}><button className={styles.button}> Previous Page -{result.previous.page} </button></Link>}
-            {result.next && <Link href={`/?page=${result.next.page}`}><button className={styles.button}> Next Page -{result.next.page} </button></Link>} 
+            {result.previous && (
+              <Link href={`/?page=${result.previous.page}`}>
+                <button className={styles.button}>
+                  {" "}
+                  Previous Page -{result.previous.page}{" "}
+                </button>
+              </Link>
+            )}
+            {result.next && (
+              <Link href={`/?page=${result.next.page}`}>
+                <button className={styles.button}>
+                  {" "}
+                  Next Page -{result.next.page}{" "}
+                </button>
+              </Link>
+            )}
           </div>
         </main>
 
@@ -102,14 +117,18 @@ export default function Home({ data, page }) {
             target="_blank"
             rel="noopener noreferrer"
           >
-            Powered by{' '}
+            Powered by{" "}
             <span className={styles.logo}>
-              <Image src="/vercel.svg" alt="Vercel Logo" width={72} height={16} />
+              <Image
+                src="/vercel.svg"
+                alt="Vercel Logo"
+                width={72}
+                height={16}
+              />
             </span>
           </a>
         </footer>
       </div>
     </>
-
-  )
+  );
 }

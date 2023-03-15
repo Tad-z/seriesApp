@@ -46,9 +46,11 @@
 
 .main {
   min-height: 100vh;
-  padding: 4rem 0;
+  padding: 3rem 0;
   flex: 1;
   display: flex;
+  color: white;
+  background: rgb(21, 20, 20);
   flex-direction: column;
   font-family: "Poppins",sans-serif;
   justify-content: flex-start;
@@ -106,9 +108,19 @@
   line-height: 1.5;
   font-size: 1.5rem;
 }
-.search input {
-  margin-right: 0.5em;
+.input {
+  color: white;
+  border: 0;
+  outline: none;
+  padding: 10px 20px;
+  border-radius: 60px;
+  background: rgb(56, 54, 54); 
 }
+/* .buttonn {
+  color: white;
+  padding: 2px;
+  background: rgb(53, 50, 50);
+} */
 
 .grid {
   display: flex;
@@ -158,6 +170,7 @@
   margin: 1rem 0 1rem 0;
   font-size: 1.1rem;
   margin-left: 1rem;
+  color: white;
 }
 
 .card p {

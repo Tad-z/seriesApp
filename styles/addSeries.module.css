@@ -75,7 +75,7 @@
     padding: 10px 20px;
     background: linear-gradient(
         130deg,
-        #313030,
+        #464040,
         #252525
     );
     color: #ffffff;
@@ -92,12 +92,13 @@
     width: 11rem;
     background: linear-gradient(
         120deg,
-        #313030,
-        #252525
+        #3f2669,
+        #1c093c
     );
     margin: 0.25rem;
     padding: 0.5rem;
     border: none;
+    color: white;
     box-shadow: 0 0 0 2px #24234d;
     outline: none;
 }

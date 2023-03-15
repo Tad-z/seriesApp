@@ -24,7 +24,7 @@ export default function Home({ data, page }) {
       <header>
         <div className={styles.navbar}>
           <div>
-            <p>Best Series App</p>
+            <p href="/">Best Series App</p>
           </div>
           <div>
             <ul>
@@ -52,11 +52,13 @@ export default function Home({ data, page }) {
           <form>
             <input
               value={input}
+              className={styles.input}
               onChange={(e) => setInput(e.target.value)}
               name="query"
               type="search"
+              placeholder="search series"
             />
-            <button>Search</button>
+            {/* <button className={styles.buttonn}>Search</button> */}
           </form>
           <ul className={styles.grid}>
             {movieSeries.map((series) => {

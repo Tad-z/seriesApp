@@ -17,7 +17,7 @@ export default function Home({ data, page }) {
   const series = result.series;
   const [input, setInput] = useState("");
   const movieSeries = series.filter((series) =>
-    series.name.toLowerCase().includes(input)
+    series.name.toLowerCase().includes(input.toLowerCase())
   );
   return (
     <>

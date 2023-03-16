@@ -6,7 +6,7 @@ import styles from "../styles/Home.module.css";
 
 export async function getServerSideProps({ query }) {
   const page = Number(query.page) || 1;
-  const defaultEndpoint = `https://series-api-973j.onrender.com/series?page=${page}&limit=6`;
+  const defaultEndpoint = `https://series-api-973j.onrender.com/series?page=${page}&limit=12`;
   const res = await fetch(defaultEndpoint);
   const data = await res.json();
   return { props: { page, data } };

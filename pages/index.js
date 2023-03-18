@@ -78,7 +78,7 @@ export default function Home({ data, page }) {
                   <a href="#">
                     <img
                       className={styles.image}
-                      src={`https://series-api-nld9.onrender.com/series${image}`}
+                      src={`https://series-api-nld9.onrender.com/${image}`}
                       alt={name}
                     />
                     <h2>{name1} &rarr;</h2>

@@ -6,7 +6,7 @@ import styles from "../styles/Home.module.css";
 
 export async function getServerSideProps({ query }) {
   const page = Number(query.page) || 1;
-  const defaultEndpoint = `https://series-api-973j.onrender.com/series?page=${page}&limit=12`;
+  const defaultEndpoint = `https://series-api-nld9.onrender.com/series?page=${page}&limit=12`;
   const res = await fetch(defaultEndpoint);
   const data = await res.json();
   return { props: { page, data } };
@@ -78,7 +78,7 @@ export default function Home({ data, page }) {
                   <a href="#">
                     <img
                       className={styles.image}
-                      src={`https://series-api-973j.onrender.com/${image}`}
+                      src={`https://series-api-nld9.onrender.com/series${image}`}
                       alt={name}
                     />
                     <h2>{name1} &rarr;</h2>

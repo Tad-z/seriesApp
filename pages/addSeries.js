@@ -24,7 +24,7 @@ export default function AddSeries() {
       formData.append("FavCast", data.FavCast);
       formData.append("status", data.status);
       const response = await postServerData(
-        `https://series-api-973j.onrender.com/series`,
+        `https://series-api-nld9.onrender.com/series`,
         formData
       );
       if (response) {

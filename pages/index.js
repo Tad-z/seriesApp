@@ -2,11 +2,13 @@ import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
 import { useState, useEffect } from "react";
+import DropDrown from "../components/DropDown";
 import styles from "../styles/Home.module.css";
+import { CaretDown, CaretUp } from "phosphor-react";
 
 export async function getServerSideProps({ query }) {
   const page = Number(query.page) || 1;
-  const defaultEndpoint = `https://series-api-nld9.onrender.com/series?page=${page}&limit=12`;
+  const defaultEndpoint = `http://localhost:5000/series/?page=${page}&limit=12`;
   const res = await fetch(defaultEndpoint);
   const data = await res.json();
   return { props: { page, data } };
@@ -15,10 +17,31 @@ export async function getServerSideProps({ query }) {
 export default function Home({ data, page }) {
   const { result = [] } = data || {};
   const series = result.series;
+  const [isExpanded, setIsExpanded] = useState(false);
+  const [option, setOption] = useState("");
+  const [genreSeries, setGenreSeries] = useState([]);
+  console.log(genreSeries);
+  const options = ["anime", "action", "romance"];
   const [input, setInput] = useState("");
   const movieSeries = series.filter((series) =>
     series.name.toLowerCase().includes(input.toLowerCase())
   );
+
+  
+  useEffect( () => {
+    const sortSeries = async () =>  {
+      const endpoint = `http://localhost:5000/sortedSeries?genre=${option}`
+      let res = await fetch(endpoint);
+      const data = await res.json();
+      const series = await data.seriesByGenre
+      setGenreSeries(series)
+      return genreSeries;
+    }
+    sortSeries()
+    .catch(console.error)
+  }, [option])
+  // const genreSeries = data.seriesByGenre;
+
   return (
     <>
       <header>
@@ -49,49 +72,114 @@ export default function Home({ data, page }) {
       </Head>
       <div className={styles.container}>
         <main className={styles.main}>
-          <form>
-            <input
-              value={input}
-              className={styles.input}
-              onChange={(e) => setInput(e.target.value)}
-              name="query"
-              type="search"
-              placeholder="search series"
-            />
-            {/* <button className={styles.buttonn}>Search</button> */}
-          </form>
+          <div className={styles.horizontal}>
+            <form>
+              <input
+                value={input}
+                className={styles.input}
+                onChange={(e) => setInput(e.target.value)}
+                name="query"
+                type="search"
+                placeholder="search series"
+              />
+
+              {/* <button className={styles.buttonn}>Search</button> */}
+            </form>
+
+            <div className={styles.dropdown}>
+              <button
+                onClick={() => setIsExpanded(!isExpanded)}
+                className={styles.DropdownButton}
+              >
+                Genre:{isExpanded && <CaretDown size={16} />}
+                {!isExpanded && <CaretUp size={16} />}
+              </button>
+              {isExpanded && (
+                <div className={styles.Panel}>
+                  <div className={styles.arrowUp}></div>
+
+                  {options.map((option) => (
+                    <div
+                      onClick={() => {
+                        setOption(option);
+                        // sortSeries(); 
+                      }}
+                      className={styles.List}
+                      key={option}
+                    >
+                      {option}
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+            {/* <DropDrown name={"Status"} options={["Ongoing", "Finished"]} /> */}
+          </div>
+
           <ul className={styles.grid}>
-            {movieSeries.map((series) => {
-              const { _id, image, name, genre, FavCast, status } = series;
-              // splits the name string into an array of strings
-              // whenever a blank space is encountered
-              // loops through each string in the array and capitalize the first letter
-              // joins the array of strings into a single string
-              const arr = name.split(" ");
-              for (var i = 0; i < arr.length; i++) {
-                arr[i] = arr[i].charAt(0).toUpperCase() + arr[i].slice(1);
-              }
-              const name1 = arr.join(" ");
-              
-              return (
-                <li key={_id} className={styles.card}>
-                  <a href="#">
-                    <img
-                      className={styles.image}
-                      src={`https://series-api-nld9.onrender.com/${image}`}
-                      alt={name}
-                    />
-                    <h2>{name1} &rarr;</h2>
-                    <p1>Genre:</p1>
-                    <p>{genre}</p>
-                    <p1>Favourite Character(s):</p1>
-                    <p>{FavCast}</p>
-                    <p1>Status:</p1>
-                    <p>{status}</p>
-                  </a>
-                </li>
-              );
-            })}
+            {genreSeries !== undefined && genreSeries !== null && Object.keys(genreSeries).length > 0
+              ? genreSeries.map((seriess) => {
+                  const { _id, image, name, genre, FavCast, status } = seriess;
+                  // splits the name string into an array of strings
+                  // whenever a blank space is encountered
+                  // loops through each string in the array and capitalize the first letter
+                  // joins the array of strings into a single string
+                  const arr = name.split(" ");
+                  for (var i = 0; i < arr.length; i++) {
+                    arr[i] = arr[i].charAt(0).toUpperCase() + arr[i].slice(1);
+                  }
+                  const name1 = arr.join(" ");
+
+                  return (
+                    <li key={_id} className={styles.card}>
+                      <a href="#">
+                        <img
+                          className={styles.image}
+                          src={`http://localhost:5000/${image}`}
+                          alt={name}
+                        />
+                        <h2>{name1} &rarr;</h2>
+                        <p1>Genre:</p1>
+                        <p>{genre}</p>
+                        <p1>Favourite Character(s):</p1>
+                        <p>{FavCast}</p>
+                        <p1>Status:</p1>
+                        <p>{status}</p>
+                      </a>
+                    </li>
+                  );
+                })
+              : movieSeries.map((series) => {
+                  const { _id, image, name, genre, FavCast, status } = series;
+                  // splits the name string into an array of strings
+                  // whenever a blank space is encountered
+                  // loops through each string in the array and capitalize the first letter
+                  // joins the array of strings into a single string
+                  const arr = name.split(" ");
+                  for (var i = 0; i < arr.length; i++) {
+                    arr[i] = arr[i].charAt(0).toUpperCase() + arr[i].slice(1);
+                  }
+                  const name1 = arr.join(" ");
+
+                  return (
+                    <li key={_id} className={styles.card}>
+                      <a href="#">
+                        <img
+                          className={styles.image}
+                          src={`http://localhost:5000/${image}`}
+                          alt={name}
+                        />
+                        <h2>{name1} &rarr;</h2>
+                        <p1>Genre:</p1>
+                        <p>{genre}</p>
+                        <p1>Favourite Character(s):</p1>
+                        <p>{FavCast}</p>
+                        <p1>Status:</p1>
+                        <p>{status}</p>
+                      </a>
+                    </li>
+                  );
+                })}
           </ul>
           <div>
             {result.previous && (

@@ -22,7 +22,8 @@ export default function Home({ data, page }) {
   const [isExpandedd, setIsExpandedd] = useState(false);
   const [option, setOption] = useState("");
   const [genreSeries, setGenreSeries] = useState([]);
-  const [statusSeries, setStatusSeries] = useState([])
+  const [statusSeries, setStatusSeries] = useState([]);
+  const [isWholeSeries, setIsWholeSeries] = useState(true);
   console.log(genreSeries);
   const options = ["anime", "action", "romance"];
   const optionss = ["Ongoing", "Finished"];
@@ -31,31 +32,34 @@ export default function Home({ data, page }) {
     series.name.toLowerCase().includes(input.toLowerCase())
   );
 
-  
-  useEffect( () => {
-    const sortSeriesByGenre = async () =>  {
-      const endpoint = `http://localhost:5000/sortedSeries?genre=${option}`
+  useEffect(() => {
+    const sortSeriesByGenre = async () => {
+      const endpoint = `http://localhost:5000/sortedSeries?genre=${option}`;
       let res = await fetch(endpoint);
       const data = await res.json();
-      const series = await data.seriesByGenre
-      setGenreSeries(series)
+      const series = await data.seriesByGenre;
+      setGenreSeries(series);
+      setIsWholeSeries(false);
       return genreSeries;
-    }
-    sortSeriesByGenre()
-    .catch(console.error)
+    };
+    
 
     const sortSeriesByStatus = async () => {
-      const endpoint = `http://localhost:5000/sortedSeries/status?status=${option}`
+      const endpoint = `http://localhost:5000/sortedSeries/status?status=${option}`;
       let res = await fetch(endpoint);
       const data = await res.json();
-      const series = await data.seriesByStatus
-      setStatusSeries(series)
+      const series = await data.seriesByStatus;
+      setStatusSeries(series);
+      setIsWholeSeries(false);
       return statusSeries;
-    }
-    sortSeriesByStatus()
-    .catch(console.error)
-
-  }, [option])
+    };
+    
+    if (option) {
+        sortSeriesByStatus();
+        sortSeriesByGenre();
+      }
+    
+  }, [option]);
   // const genreSeries = data.seriesByGenre;
 
   return (
@@ -118,7 +122,7 @@ export default function Home({ data, page }) {
                     <div
                       onClick={() => {
                         setOption(option);
-                        // sortSeries(); 
+                        // sortSeries();
                       }}
                       className={styles.List}
                       key={option}
@@ -145,7 +149,7 @@ export default function Home({ data, page }) {
                     <div
                       onClick={() => {
                         setOption(option);
-                        // sortSeries(); 
+                        // sortSeries();
                       }}
                       className={styles.List}
                       key={option}
@@ -160,7 +164,9 @@ export default function Home({ data, page }) {
           </div>
 
           <ul className={styles.grid}>
-            {genreSeries !== undefined && genreSeries !== null && Object.keys(genreSeries).length > 0
+            {genreSeries !== undefined &&
+            genreSeries !== null &&
+            Object.keys(genreSeries).length > 0
               ? genreSeries.map((seriess) => {
                   const { _id, image, name, genre, FavCast, status } = seriess;
                   // splits the name string into an array of strings
@@ -192,7 +198,9 @@ export default function Home({ data, page }) {
                     </li>
                   );
                 })
-              : statusSeries !== undefined && statusSeries !== null && Object.keys(statusSeries).length > 0
+              : statusSeries !== undefined &&
+                statusSeries !== null &&
+                Object.keys(statusSeries).length > 0
               ? statusSeries.map((seriess) => {
                   const { _id, image, name, genre, FavCast, status } = seriess;
                   // splits the name string into an array of strings
@@ -256,7 +264,7 @@ export default function Home({ data, page }) {
                 })}
           </ul>
           <div>
-            {result.previous && (
+            {isWholeSeries && result.previous && (
               <Link href={`/?page=${result.previous.page}`}>
                 <button className={styles.button}>
                   {" "}
@@ -264,7 +272,7 @@ export default function Home({ data, page }) {
                 </button>
               </Link>
             )}
-            {result.next && (
+            {isWholeSeries && result.next && (
               <Link href={`/?page=${result.next.page}`}>
                 <button className={styles.button}>
                   {" "}

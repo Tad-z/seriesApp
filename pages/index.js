@@ -8,7 +8,7 @@ import { CaretDown, CaretUp } from "phosphor-react";
 
 export async function getServerSideProps({ query }) {
   const page = Number(query.page) || 1;
-  const defaultEndpoint = `http://localhost:5000/series/?page=${page}&limit=12`;
+  const defaultEndpoint = `https://series-api-nld9.onrender.com/series/?page=${page}&limit=12`;
   const res = await fetch(defaultEndpoint);
   const data = await res.json();
   return { props: { page, data } };
@@ -27,19 +27,18 @@ export default function Home({ data, page }) {
     series.name.toLowerCase().includes(input.toLowerCase())
   );
 
-  
-  useEffect( () => {
-    const sortSeries = async () =>  {
-      const endpoint = `http://localhost:5000/sortedSeries?genre=${option}`
+  useEffect(() => {
+    const sortSeries = async () => {
+      const endpoint = `https://series-api-nld9.onrender.com/sortedSeries?genre=${option}`;
       let res = await fetch(endpoint);
-      const data = await res.json();
-      const series = await data.seriesByGenre
-      setGenreSeries(series)
+      const dat = await res.json();
+      const series = await dat.seriesByGenre;
+      setGenreSeries(series);
+      console.log("series", genreSeries);
       return genreSeries;
-    }
-    sortSeries()
-    .catch(console.error)
-  }, [option])
+    };
+    sortSeries().catch(console.error);
+  }, [option]);
   // const genreSeries = data.seriesByGenre;
 
   return (
@@ -102,7 +101,7 @@ export default function Home({ data, page }) {
                     <div
                       onClick={() => {
                         setOption(option);
-                        // sortSeries(); 
+                        // sortSeries();
                       }}
                       className={styles.List}
                       key={option}
@@ -117,7 +116,9 @@ export default function Home({ data, page }) {
           </div>
 
           <ul className={styles.grid}>
-            {genreSeries !== undefined && genreSeries !== null && Object.keys(genreSeries).length > 0
+            {genreSeries !== undefined &&
+            genreSeries !== null &&
+            Object.keys(genreSeries).length > 0
               ? genreSeries.map((seriess) => {
                   const { _id, image, name, genre, FavCast, status } = seriess;
                   // splits the name string into an array of strings
@@ -135,7 +136,7 @@ export default function Home({ data, page }) {
                       <a href="#">
                         <img
                           className={styles.image}
-                          src={`http://localhost:5000/${image}`}
+                          src={`https://series-api-nld9.onrender.com/${image}`}
                           alt={name}
                         />
                         <h2>{name1} &rarr;</h2>
@@ -166,7 +167,7 @@ export default function Home({ data, page }) {
                       <a href="#">
                         <img
                           className={styles.image}
-                          src={`http://localhost:5000/${image}`}
+                          src={`https://series-api-nld9.onrender.com/${image}`}
                           alt={name}
                         />
                         <h2>{name1} &rarr;</h2>

@@ -25,7 +25,7 @@ export default function Home({ data, page }) {
   const [statusSeries, setStatusSeries] = useState([]);
   const [isWholeSeries, setIsWholeSeries] = useState(true);
   console.log(genreSeries);
-  const options = ["anime", "action", "romance"];
+  const options = ["Anime", "Action", "Romance", "Comedy", "Horror", "Drama","Fiction"];
   const optionss = ["Ongoing", "Finished"];
   const [input, setInput] = useState("");
   const movieSeries = series.filter((series) =>

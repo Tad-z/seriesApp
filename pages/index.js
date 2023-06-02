@@ -16,28 +16,55 @@ export async function getServerSideProps({ query }) {
 
 export default function Home({ data, page }) {
   const { result = [] } = data || {};
+  console.log(result);
   const series = result.series;
   const [isExpanded, setIsExpanded] = useState(false);
+  const [isExpandedd, setIsExpandedd] = useState(false);
   const [option, setOption] = useState("");
   const [genreSeries, setGenreSeries] = useState([]);
+  const [statusSeries, setStatusSeries] = useState([]);
+  const [isWholeSeries, setIsWholeSeries] = useState(true);
   console.log(genreSeries);
-  const options = ["anime", "action", "romance"];
+  const options = [
+    "Anime",
+    "Action",
+    "Romance",
+    "Comedy",
+    "Horror",
+    "Drama",
+    "Fiction",
+  ];
+  const optionss = ["Ongoing", "Finished"];
   const [input, setInput] = useState("");
   const movieSeries = series.filter((series) =>
     series.name.toLowerCase().includes(input.toLowerCase())
   );
 
   useEffect(() => {
-    const sortSeries = async () => {
-      const endpoint = `https://series-api-nld9.onrender.com/sortedSeries?genre=${option}`;
+    const sortSeriesByGenre = async () => {
+      const endpoint = `http://localhost:5000/sortedSeries?genre=${option}`;
       let res = await fetch(endpoint);
-      const dat = await res.json();
-      const series = await dat.seriesByGenre;
+      const data = await res.json();
+      const series = await data.seriesByGenre;
       setGenreSeries(series);
-      console.log("series", genreSeries);
+      setIsWholeSeries(false);
       return genreSeries;
     };
-    sortSeries().catch(console.error);
+
+    const sortSeriesByStatus = async () => {
+      const endpoint = `http://localhost:5000/sortedSeries/status?status=${option}`;
+      let res = await fetch(endpoint);
+      const data = await res.json();
+      const series = await data.seriesByStatus;
+      setStatusSeries(series);
+      setIsWholeSeries(false);
+      return statusSeries;
+    };
+
+    if (option) {
+      sortSeriesByStatus();
+      sortSeriesByGenre();
+    }
   }, [option]);
   // const genreSeries = data.seriesByGenre;
 
@@ -72,7 +99,7 @@ export default function Home({ data, page }) {
       <div className={styles.container}>
         <main className={styles.main}>
           <div className={styles.horizontal}>
-            <form>
+            <form className={styles.form}>
               <input
                 value={input}
                 className={styles.input}
@@ -84,33 +111,61 @@ export default function Home({ data, page }) {
 
               {/* <button className={styles.buttonn}>Search</button> */}
             </form>
+            <div className={styles.dropdownWrapper}>
+              <div className={styles.dropdown}>
+                <button
+                  onClick={() => setIsExpanded(!isExpanded)}
+                  className={styles.DropdownButton}
+                >
+                  Genre:{isExpanded && <CaretDown size={16} />}
+                  {!isExpanded && <CaretUp size={16} />}
+                </button>
+                {isExpanded && (
+                  <div className={styles.Panel}>
+                    <div className={styles.arrowUp}></div>
 
-            <div className={styles.dropdown}>
-              <button
-                onClick={() => setIsExpanded(!isExpanded)}
-                className={styles.DropdownButton}
-              >
-                Genre:{isExpanded && <CaretDown size={16} />}
-                {!isExpanded && <CaretUp size={16} />}
-              </button>
-              {isExpanded && (
-                <div className={styles.Panel}>
-                  <div className={styles.arrowUp}></div>
+                    {options.map((option) => (
+                      <div
+                        onClick={() => {
+                          setOption(option);
+                          // sortSeries();
+                        }}
+                        className={styles.List}
+                        key={option}
+                      >
+                        {option}
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+              <div className={styles.dropdown}>
+                <button
+                  onClick={() => setIsExpandedd(!isExpandedd)}
+                  className={styles.DropdownButton}
+                >
+                  Status:{isExpandedd && <CaretDown size={16} />}
+                  {!isExpandedd && <CaretUp size={16} />}
+                </button>
+                {isExpandedd && (
+                  <div className={styles.Panel}>
+                    <div className={styles.arrowUp}></div>
 
-                  {options.map((option) => (
-                    <div
-                      onClick={() => {
-                        setOption(option);
-                        // sortSeries();
-                      }}
-                      className={styles.List}
-                      key={option}
-                    >
-                      {option}
-                    </div>
-                  ))}
-                </div>
-              )}
+                    {optionss.map((option) => (
+                      <div
+                        onClick={() => {
+                          setOption(option);
+                          // sortSeries();
+                        }}
+                        className={styles.List}
+                        key={option}
+                      >
+                        {option}
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
             </div>
             {/* <DropDrown name={"Status"} options={["Ongoing", "Finished"]} /> */}
           </div>
@@ -150,7 +205,73 @@ export default function Home({ data, page }) {
                     </li>
                   );
                 })
-              : movieSeries.map((series) => {
+              : statusSeries !== undefined &&
+                statusSeries !== null &&
+                Object.keys(statusSeries).length > 0
+              ? statusSeries.map((seriess) => {
+                  const { _id, image, name, genre, FavCast, status } = seriess;
+                  // splits the name string into an array of strings
+                  // whenever a blank space is encountered
+                  // loops through each string in the array and capitalize the first letter
+                  // joins the array of strings into a single string
+                  const arr = name.split(" ");
+                  for (var i = 0; i < arr.length; i++) {
+                    arr[i] = arr[i].charAt(0).toUpperCase() + arr[i].slice(1);
+                  }
+                  const name1 = arr.join(" ");
+                  return (
+                    <li key={_id} className={styles.card}>
+                      <a href="#">
+                        <img
+                          className={styles.image}
+                          src={`https://series-api-nld9.onrender.com/${image}`}
+                          alt={name}
+                        />
+                        <h2>{name1} &rarr;</h2>
+                        <p1>Genre:</p1>
+                        <p>{genre}</p>
+                        <p1>Favourite Character(s):</p1>
+                        <p>{FavCast}</p>
+                        <p1>Status:</p1>
+                        <p>{status}</p>
+                      </a>
+                    </li>
+                  );
+                })
+              : // : statusSeries !== undefined &&
+                //   statusSeries !== null &&
+                //   Object.keys(statusSeries).length > 0
+                // ? statusSeries.map((seriess) => {
+                //     const { _id, image, name, genre, FavCast, status } = seriess;
+                //     // splits the name string into an array of strings
+                //     // whenever a blank space is encountered
+                //     // loops through each string in the array and capitalize the first letter
+                //     // joins the array of strings into a single string
+                //     const arr = name.split(" ");
+                //     for (var i = 0; i < arr.length; i++) {
+                //       arr[i] = arr[i].charAt(0).toUpperCase() + arr[i].slice(1);
+                //     }
+                //     const name1 = arr.join(" ");
+                //     return (
+                //       <li key={_id} className={styles.card}>
+                //         <a href="#">
+                //           <img
+                //             className={styles.image}
+                //             src={`https://series-api-nld9.onrender.com/${image}`}
+                //             alt={name}
+                //           />
+                //           <h2>{name1} &rarr;</h2>
+                //           <p1>Genre:</p1>
+                //           <p>{genre}</p>
+                //           <p1>Favourite Character(s):</p1>
+                //           <p>{FavCast}</p>
+                //           <p1>Status:</p1>
+                //           <p>{status}</p>
+                //         </a>
+                //       </li>
+                //     );
+                //   })
+                movieSeries.map((series) => {
                   const { _id, image, name, genre, FavCast, status } = series;
                   // splits the name string into an array of strings
                   // whenever a blank space is encountered
@@ -183,7 +304,7 @@ export default function Home({ data, page }) {
                 })}
           </ul>
           <div>
-            {result.previous && (
+            {isWholeSeries && result.previous && (
               <Link href={`/?page=${result.previous.page}`}>
                 <button className={styles.button}>
                   {" "}
@@ -191,7 +312,7 @@ export default function Home({ data, page }) {
                 </button>
               </Link>
             )}
-            {result.next && (
+            {isWholeSeries && result.next && (
               <Link href={`/?page=${result.next.page}`}>
                 <button className={styles.button}>
                   {" "}

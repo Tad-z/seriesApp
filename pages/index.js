@@ -8,7 +8,7 @@ import { CaretDown, CaretUp } from "phosphor-react";
 
 export async function getServerSideProps({ query }) {
   const page = Number(query.page) || 1;
-  const defaultEndpoint = `http://localhost:5000/series/?page=${page}&limit=12`;
+  const defaultEndpoint = `https://series-api-nld9.onrender.com/series/?page=${page}&limit=12`;
   const res = await fetch(defaultEndpoint);
   const data = await res.json();
   return { props: { page, data } };
@@ -25,7 +25,15 @@ export default function Home({ data, page }) {
   const [statusSeries, setStatusSeries] = useState([]);
   const [isWholeSeries, setIsWholeSeries] = useState(true);
   console.log(genreSeries);
-  const options = ["Anime", "Action", "Romance", "Comedy", "Horror", "Drama","Fiction"];
+  const options = [
+    "Anime",
+    "Action",
+    "Romance",
+    "Comedy",
+    "Horror",
+    "Drama",
+    "Fiction",
+  
   const optionss = ["Ongoing", "Finished"];
   const [input, setInput] = useState("");
   const movieSeries = series.filter((series) =>
@@ -42,7 +50,6 @@ export default function Home({ data, page }) {
       setIsWholeSeries(false);
       return genreSeries;
     };
-    
 
     const sortSeriesByStatus = async () => {
       const endpoint = `http://localhost:5000/sortedSeries/status?status=${option}`;
@@ -53,12 +60,11 @@ export default function Home({ data, page }) {
       setIsWholeSeries(false);
       return statusSeries;
     };
-    
+
     if (option) {
-        sortSeriesByStatus();
-        sortSeriesByGenre();
-      }
-    
+      sortSeriesByStatus();
+      sortSeriesByGenre();
+    }
   }, [option]);
   // const genreSeries = data.seriesByGenre;
 
@@ -93,7 +99,7 @@ export default function Home({ data, page }) {
       <div className={styles.container}>
         <main className={styles.main}>
           <div className={styles.horizontal}>
-            <form>
+            <form className={styles.form}>
               <input
                 value={input}
                 className={styles.input}
@@ -105,60 +111,61 @@ export default function Home({ data, page }) {
 
               {/* <button className={styles.buttonn}>Search</button> */}
             </form>
+            <div className={styles.dropdownWrapper}>
+              <div className={styles.dropdown}>
+                <button
+                  onClick={() => setIsExpanded(!isExpanded)}
+                  className={styles.DropdownButton}
+                >
+                  Genre:{isExpanded && <CaretDown size={16} />}
+                  {!isExpanded && <CaretUp size={16} />}
+                </button>
+                {isExpanded && (
+                  <div className={styles.Panel}>
+                    <div className={styles.arrowUp}></div>
 
-            <div className={styles.dropdown}>
-              <button
-                onClick={() => setIsExpanded(!isExpanded)}
-                className={styles.DropdownButton}
-              >
-                Genre:{isExpanded && <CaretDown size={16} />}
-                {!isExpanded && <CaretUp size={16} />}
-              </button>
-              {isExpanded && (
-                <div className={styles.Panel}>
-                  <div className={styles.arrowUp}></div>
-
-                  {options.map((option) => (
-                    <div
-                      onClick={() => {
-                        setOption(option);
-                        // sortSeries();
-                      }}
-                      className={styles.List}
-                      key={option}
-                    >
-                      {option}
-                    </div>
-                  ))}
-                </div>
-              )}
-            </div>
-            <div className={styles.dropdown}>
-              <button
-                onClick={() => setIsExpandedd(!isExpandedd)}
-                className={styles.DropdownButton}
-              >
-                Status:{isExpandedd && <CaretDown size={16} />}
-                {!isExpandedd && <CaretUp size={16} />}
-              </button>
-              {isExpandedd && (
-                <div className={styles.Panel}>
-                  <div className={styles.arrowUp}></div>
-
-                  {optionss.map((option) => (
-                    <div
-                      onClick={() => {
-                        setOption(option);
-                        // sortSeries();
-                      }}
-                      className={styles.List}
-                      key={option}
-                    >
-                      {option}
-                    </div>
-                  ))}
-                </div>
-              )}
+                    {options.map((option) => (
+                      <div
+                        onClick={() => {
+                          setOption(option);
+                          // sortSeries();
+                        }}
+                        className={styles.List}
+                        key={option}
+                      >
+                        {option}
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+              <div className={styles.dropdown}>
+                <button
+                  onClick={() => setIsExpandedd(!isExpandedd)}
+                  className={styles.DropdownButton}
+                >
+                  Status:{isExpandedd && <CaretDown size={16} />}
+                  {!isExpandedd && <CaretUp size={16} />}
+                </button>
+                {isExpandedd && (
+                  <div className={styles.Panel}>
+                    <div className={styles.arrowUp}></div>
+                   
+                    {optionss.map((option) => (
+                      <div
+                        onClick={() => {
+                          setOption(option);
+                          // sortSeries();
+                        }}
+                        className={styles.List}
+                        key={option}
+                      >
+                        {option}
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
             </div>
             {/* <DropDrown name={"Status"} options={["Ongoing", "Finished"]} /> */}
           </div>
@@ -184,7 +191,7 @@ export default function Home({ data, page }) {
                       <a href="#">
                         <img
                           className={styles.image}
-                          src={`http://localhost:5000/${image}`}
+                          src={`https://series-api-nld9.onrender.com/${image}`}
                           alt={name}
                         />
                         <h2>{name1} &rarr;</h2>
@@ -217,7 +224,7 @@ export default function Home({ data, page }) {
                       <a href="#">
                         <img
                           className={styles.image}
-                          src={`http://localhost:5000/${image}`}
+                          src={`https://series-api-nld9.onrender.com/${image}`}
                           alt={name}
                         />
                         <h2>{name1} &rarr;</h2>
@@ -231,7 +238,40 @@ export default function Home({ data, page }) {
                     </li>
                   );
                 })
-              : movieSeries.map((series) => {
+              : // : statusSeries !== undefined &&
+                //   statusSeries !== null &&
+                //   Object.keys(statusSeries).length > 0
+                // ? statusSeries.map((seriess) => {
+                //     const { _id, image, name, genre, FavCast, status } = seriess;
+                //     // splits the name string into an array of strings
+                //     // whenever a blank space is encountered
+                //     // loops through each string in the array and capitalize the first letter
+                //     // joins the array of strings into a single string
+                //     const arr = name.split(" ");
+                //     for (var i = 0; i < arr.length; i++) {
+                //       arr[i] = arr[i].charAt(0).toUpperCase() + arr[i].slice(1);
+                //     }
+                //     const name1 = arr.join(" ");
+                //     return (
+                //       <li key={_id} className={styles.card}>
+                //         <a href="#">
+                //           <img
+                //             className={styles.image}
+                //             src={`https://series-api-nld9.onrender.com/${image}`}
+                //             alt={name}
+                //           />
+                //           <h2>{name1} &rarr;</h2>
+                //           <p1>Genre:</p1>
+                //           <p>{genre}</p>
+                //           <p1>Favourite Character(s):</p1>
+                //           <p>{FavCast}</p>
+                //           <p1>Status:</p1>
+                //           <p>{status}</p>
+                //         </a>
+                //       </li>
+                //     );
+                //   })
+                movieSeries.map((series) => {
                   const { _id, image, name, genre, FavCast, status } = series;
                   // splits the name string into an array of strings
                   // whenever a blank space is encountered
@@ -248,7 +288,7 @@ export default function Home({ data, page }) {
                       <a href="#">
                         <img
                           className={styles.image}
-                          src={`http://localhost:5000/${image}`}
+                          src={`https://series-api-nld9.onrender.com/${image}`}
                           alt={name}
                         />
                         <h2>{name1} &rarr;</h2>

@@ -33,7 +33,7 @@ export default function Home({ data, page }) {
     "Horror",
     "Drama",
     "Fiction",
-  ];
+  
   const optionss = ["Ongoing", "Finished"];
   const [input, setInput] = useState("");
   const movieSeries = series.filter((series) =>
@@ -150,7 +150,7 @@ export default function Home({ data, page }) {
                 {isExpandedd && (
                   <div className={styles.Panel}>
                     <div className={styles.arrowUp}></div>
-
+                   
                     {optionss.map((option) => (
                       <div
                         onClick={() => {

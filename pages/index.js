@@ -20,8 +20,8 @@ export default function Home({ data, page }) {
   const series = result.series;
   const [isExpanded, setIsExpanded] = useState(false);
   const [isExpandedd, setIsExpandedd] = useState(false);
-  const [genre, setGenre] = useState(undefined);
-  const [status, setStatus] = useState(undefined);
+  const [option, setOption] = useState(undefined);
+  // const [status, setStatus] = useState(undefined);
   const [genreSeries, setGenreSeries] = useState([]);
   const [statusSeries, setStatusSeries] = useState([]);
   const [isWholeSeries, setIsWholeSeries] = useState(true);
@@ -44,7 +44,7 @@ export default function Home({ data, page }) {
 
   useEffect(() => {
     const sortSeriesByGenre = async () => {
-      const endpoint = `http://localhost:5000/sortedSeries?genre=${genre}`;
+      const endpoint = `http://localhost:5000/sortedSeries?genre=${option}`;
       let res = await fetch(endpoint);
       if (!res.ok) {
         sortSeriesByStatus();
@@ -57,8 +57,7 @@ export default function Home({ data, page }) {
     };
   
     const sortSeriesByStatus = async () => {
-      const endpoint = `http://localhost:5000/sortedSeries/status?status=${status}`;
-      console.log(status);
+      const endpoint = `http://localhost:5000/sortedSeries/status?status=${option}`;
       let res = await fetch(endpoint);
       if (!res.ok) {
         sortSeriesByGenre();
@@ -70,14 +69,13 @@ export default function Home({ data, page }) {
       return statusSeries;
     };
   
-    if (genre) {
-      sortSeriesByGenre();
-    } else {
+    if (option) {
       sortSeriesByStatus();
-    }
+      sortSeriesByGenre();
+    } 
     
-  }, [genre, status]);
-  
+  }, [option]);
+  // const genreSeries = data.seriesByGenre;
 
   return (
     <>
@@ -138,7 +136,7 @@ export default function Home({ data, page }) {
                     {options.map((option) => (
                       <div
                         onClick={() => {
-                          setGenre(option);
+                          setOption(option);
                           // sortSeries();
                         }}
                         className={styles.List}
@@ -165,7 +163,7 @@ export default function Home({ data, page }) {
                     {optionss.map((option) => (
                       <div
                         onClick={() => {
-                          setStatus(option);
+                          setOption(option);
                           // sortSeries();
                         }}
                         className={styles.List}
@@ -202,15 +200,15 @@ export default function Home({ data, page }) {
                     <a href="#">
                       <img
                         className={styles.image}
-                        src={`https://series-api-nld9.onrender.com/${image}`}
+                        src={`http://localhost:5000/${image}`}
                         alt={name}
                       />
                       <h2>{name1} &rarr;</h2>
-                      <p1>Genre:</p1>
+                      <p>Genre:</p>
                       <p>{genre}</p>
-                      <p1>Favourite Character(s):</p1>
+                      <p>Favourite Character(s):</p>
                       <p>{FavCast}</p>
-                      <p1>Status:</p1>
+                      <p>Status:</p>
                       <p>{status}</p>
                     </a>
                   </li>
@@ -235,53 +233,21 @@ export default function Home({ data, page }) {
                       <a href="#">
                         <img
                           className={styles.image}
-                          src={`https://series-api-nld9.onrender.com/${image}`}
+                          src={`http://localhost:5000/${image}`}
                           alt={name}
                         />
                         <h2>{name1} &rarr;</h2>
-                        <p1>Genre:</p1>
+                        <p>Genre:</p>
                         <p>{genre}</p>
-                        <p1>Favourite Character(s):</p1>
+                        <p>Favourite Character(s):</p>
                         <p>{FavCast}</p>
-                        <p1>Status:</p1>
+                        <p>Status:</p>
                         <p>{status}</p>
                       </a>
                     </li>
                   );
                 })
-                : // : statusSeries !== undefined &&
-                //   statusSeries !== null &&
-                //   Object.keys(statusSeries).length > 0
-                // ? statusSeries.map((seriess) => {
-                //     const { _id, image, name, genre, FavCast, status } = seriess;
-                //     // splits the name string into an array of strings
-                //     // whenever a blank space is encountered
-                //     // loops through each string in the array and capitalize the first letter
-                //     // joins the array of strings into a single string
-                //     const arr = name.split(" ");
-                //     for (var i = 0; i < arr.length; i++) {
-                //       arr[i] = arr[i].charAt(0).toUpperCase() + arr[i].slice(1);
-                //     }
-                //     const name1 = arr.join(" ");
-                //     return (
-                //       <li key={_id} className={styles.card}>
-                //         <a href="#">
-                //           <img
-                //             className={styles.image}
-                //             src={`https://series-api-nld9.onrender.com/${image}`}
-                //             alt={name}
-                //           />
-                //           <h2>{name1} &rarr;</h2>
-                //           <p1>Genre:</p1>
-                //           <p>{genre}</p>
-                //           <p1>Favourite Character(s):</p1>
-                //           <p>{FavCast}</p>
-                //           <p1>Status:</p1>
-                //           <p>{status}</p>
-                //         </a>
-                //       </li>
-                //     );
-                //   })
+                : 
                 movieSeries.map((series) => {
                   const { _id, image, name, genre, FavCast, status } = series;
                   // splits the name string into an array of strings
@@ -299,15 +265,15 @@ export default function Home({ data, page }) {
                       <a href="#">
                         <img
                           className={styles.image}
-                          src={`https://series-api-nld9.onrender.com/${image}`}
+                          src={`http://localhost:5000/${image}`}
                           alt={name}
                         />
                         <h2>{name1} &rarr;</h2>
-                        <p1>Genre:</p1>
+                        <p>Genre:</p>
                         <p>{genre}</p>
-                        <p1>Favourite Character(s):</p1>
+                        <p>Favourite Character(s):</p>
                         <p>{FavCast}</p>
-                        <p1>Status:</p1>
+                        <p>Status:</p>
                         <p>{status}</p>
                       </a>
                     </li>

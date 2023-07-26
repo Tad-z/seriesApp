@@ -2,7 +2,7 @@ import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
 import { useState, useEffect } from "react";
-import DropDrown from "../components/DropDown";
+
 import styles from "../styles/Home.module.css";
 import { CaretDown, CaretUp } from "phosphor-react";
 
@@ -20,7 +20,8 @@ export default function Home({ data, page }) {
   const series = result.series;
   const [isExpanded, setIsExpanded] = useState(false);
   const [isExpandedd, setIsExpandedd] = useState(false);
-  const [option, setOption] = useState("");
+  const [genre, setGenre] = useState(undefined);
+  const [status, setStatus] = useState(undefined);
   const [genreSeries, setGenreSeries] = useState([]);
   const [statusSeries, setStatusSeries] = useState([]);
   const [isWholeSeries, setIsWholeSeries] = useState(true);
@@ -39,34 +40,44 @@ export default function Home({ data, page }) {
   const movieSeries = series.filter((series) =>
     series.name.toLowerCase().includes(input.toLowerCase())
   );
+  
 
   useEffect(() => {
     const sortSeriesByGenre = async () => {
-      const endpoint = `http://localhost:5000/sortedSeries?genre=${option}`;
+      const endpoint = `http://localhost:5000/sortedSeries?genre=${genre}`;
       let res = await fetch(endpoint);
+      if (!res.ok) {
+        sortSeriesByStatus();
+      }
       const data = await res.json();
       const series = await data.seriesByGenre;
       setGenreSeries(series);
       setIsWholeSeries(false);
       return genreSeries;
     };
-
+  
     const sortSeriesByStatus = async () => {
-      const endpoint = `http://localhost:5000/sortedSeries/status?status=${option}`;
+      const endpoint = `http://localhost:5000/sortedSeries/status?status=${status}`;
+      console.log(status);
       let res = await fetch(endpoint);
+      if (!res.ok) {
+        sortSeriesByGenre();
+      }
       const data = await res.json();
       const series = await data.seriesByStatus;
       setStatusSeries(series);
       setIsWholeSeries(false);
       return statusSeries;
     };
-
-    if (option) {
-      sortSeriesByStatus();
+  
+    if (genre) {
       sortSeriesByGenre();
+    } else {
+      sortSeriesByStatus();
     }
-  }, [option]);
-  // const genreSeries = data.seriesByGenre;
+    
+  }, [genre, status]);
+  
 
   return (
     <>
@@ -127,7 +138,7 @@ export default function Home({ data, page }) {
                     {options.map((option) => (
                       <div
                         onClick={() => {
-                          setOption(option);
+                          setGenre(option);
                           // sortSeries();
                         }}
                         className={styles.List}
@@ -150,11 +161,11 @@ export default function Home({ data, page }) {
                 {isExpandedd && (
                   <div className={styles.Panel}>
                     <div className={styles.arrowUp}></div>
-                   
+
                     {optionss.map((option) => (
                       <div
                         onClick={() => {
-                          setOption(option);
+                          setStatus(option);
                           // sortSeries();
                         }}
                         className={styles.List}
@@ -172,43 +183,43 @@ export default function Home({ data, page }) {
 
           <ul className={styles.grid}>
             {genreSeries !== undefined &&
-            genreSeries !== null &&
-            Object.keys(genreSeries).length > 0
+              genreSeries !== null &&
+              Object.keys(genreSeries).length > 0
               ? genreSeries.map((seriess) => {
-                  const { _id, image, name, genre, FavCast, status } = seriess;
-                  // splits the name string into an array of strings
-                  // whenever a blank space is encountered
-                  // loops through each string in the array and capitalize the first letter
-                  // joins the array of strings into a single string
-                  const arr = name.split(" ");
-                  for (var i = 0; i < arr.length; i++) {
-                    arr[i] = arr[i].charAt(0).toUpperCase() + arr[i].slice(1);
-                  }
-                  const name1 = arr.join(" ");
+                const { _id, image, name, genre, FavCast, status } = seriess;
+                // splits the name string into an array of strings
+                // whenever a blank space is encountered
+                // loops through each string in the array and capitalize the first letter
+                // joins the array of strings into a single string
+                const arr = name.split(" ");
+                for (var i = 0; i < arr.length; i++) {
+                  arr[i] = arr[i].charAt(0).toUpperCase() + arr[i].slice(1);
+                }
+                const name1 = arr.join(" ");
 
-                  return (
-                    <li key={_id} className={styles.card}>
-                      <a href="#">
-                        <img
-                          className={styles.image}
-                          src={`https://series-api-nld9.onrender.com/${image}`}
-                          alt={name}
-                        />
-                        <h2>{name1} &rarr;</h2>
-                        <p1>Genre:</p1>
-                        <p>{genre}</p>
-                        <p1>Favourite Character(s):</p1>
-                        <p>{FavCast}</p>
-                        <p1>Status:</p1>
-                        <p>{status}</p>
-                      </a>
-                    </li>
-                  );
-                })
+                return (
+                  <li key={_id} className={styles.card}>
+                    <a href="#">
+                      <img
+                        className={styles.image}
+                        src={`https://series-api-nld9.onrender.com/${image}`}
+                        alt={name}
+                      />
+                      <h2>{name1} &rarr;</h2>
+                      <p1>Genre:</p1>
+                      <p>{genre}</p>
+                      <p1>Favourite Character(s):</p1>
+                      <p>{FavCast}</p>
+                      <p1>Status:</p1>
+                      <p>{status}</p>
+                    </a>
+                  </li>
+                );
+              })
               : statusSeries !== undefined &&
                 statusSeries !== null &&
                 Object.keys(statusSeries).length > 0
-              ? statusSeries.map((seriess) => {
+                ? statusSeries.map((seriess) => {
                   const { _id, image, name, genre, FavCast, status } = seriess;
                   // splits the name string into an array of strings
                   // whenever a blank space is encountered
@@ -238,7 +249,7 @@ export default function Home({ data, page }) {
                     </li>
                   );
                 })
-              : // : statusSeries !== undefined &&
+                : // : statusSeries !== undefined &&
                 //   statusSeries !== null &&
                 //   Object.keys(statusSeries).length > 0
                 // ? statusSeries.map((seriess) => {

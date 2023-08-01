@@ -8,7 +8,7 @@ import { CaretDown, CaretUp } from "phosphor-react";
 
 export async function getServerSideProps({ query }) {
   const page = Number(query.page) || 1;
-  const defaultEndpoint = `http://localhost:5000/series/?page=${page}&limit=12`;
+  const defaultEndpoint = `https://series-api-nld9.onrender.com/series?page=1&limit=12`;
   const res = await fetch(defaultEndpoint);
   const data = await res.json();
   return { props: { page, data } };
@@ -43,7 +43,7 @@ export default function Home({ data, page }) {
 
   useEffect(() => {
     const sortSeriesByGenre = async () => {
-      const endpoint = `http://localhost:5000/sortedSeries?genre=${option}`;
+      const endpoint = `https://series-api-nld9.onrender.com/sortedSeries?genre=${option}`;
       let res = await fetch(endpoint);
       if (!res.ok) {
         sortSeriesByStatus();
@@ -56,7 +56,7 @@ export default function Home({ data, page }) {
     };
 
     const sortSeriesByStatus = async () => {
-      const endpoint = `http://localhost:5000/sortedSeries/status?status=${option}`;
+      const endpoint = `https://series-api-nld9.onrender.com/sortedSeries/status?status=${option}`;
       let res = await fetch(endpoint);
       if (!res.ok) {
         sortSeriesByGenre();
@@ -199,7 +199,7 @@ export default function Home({ data, page }) {
                     <a href="#">
                       <img
                         className={styles.image}
-                        src={`http://localhost:5000/${image}`}
+                        src={`https://series-api-nld9.onrender.com/${image}`}
                         alt={name}
                       />
                       <h2>{name1} &rarr;</h2>
@@ -232,7 +232,7 @@ export default function Home({ data, page }) {
                       <a href="#">
                         <img
                           className={styles.image}
-                          src={`http://localhost:5000/${image}`}
+                          src={`https://series-api-nld9.onrender.com/${image}`}
                           alt={name}
                         />
                         <h2>{name1} &rarr;</h2>
@@ -264,7 +264,7 @@ export default function Home({ data, page }) {
                       <a href="#">
                         <img
                           className={styles.image}
-                          src={`http://localhost:5000/${image}`}
+                          src={`https://series-api-nld9.onrender.com/${image}`}
                           alt={name}
                         />
                         <h2>{name1} &rarr;</h2>

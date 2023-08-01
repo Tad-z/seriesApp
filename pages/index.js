@@ -16,7 +16,6 @@ export async function getServerSideProps({ query }) {
 
 export default function Home({ data, page }) {
   const { result = [] } = data || {};
-  console.log(result);
   const series = result.series;
   const [isExpanded, setIsExpanded] = useState(false);
   const [isExpandedd, setIsExpandedd] = useState(false);
@@ -25,7 +24,7 @@ export default function Home({ data, page }) {
   const [genreSeries, setGenreSeries] = useState([]);
   const [statusSeries, setStatusSeries] = useState([]);
   const [isWholeSeries, setIsWholeSeries] = useState(true);
-  console.log(genreSeries);
+
   const options = [
     "Anime",
     "Action",
@@ -40,7 +39,7 @@ export default function Home({ data, page }) {
   const movieSeries = series.filter((series) =>
     series.name.toLowerCase().includes(input.toLowerCase())
   );
-  
+
 
   useEffect(() => {
     const sortSeriesByGenre = async () => {
@@ -55,7 +54,7 @@ export default function Home({ data, page }) {
       setIsWholeSeries(false);
       return genreSeries;
     };
-  
+
     const sortSeriesByStatus = async () => {
       const endpoint = `http://localhost:5000/sortedSeries/status?status=${option}`;
       let res = await fetch(endpoint);
@@ -68,12 +67,12 @@ export default function Home({ data, page }) {
       setIsWholeSeries(false);
       return statusSeries;
     };
-  
+
     if (option) {
       sortSeriesByStatus();
       sortSeriesByGenre();
-    } 
-    
+    }
+
   }, [option]);
   // const genreSeries = data.seriesByGenre;
 
@@ -204,12 +203,12 @@ export default function Home({ data, page }) {
                         alt={name}
                       />
                       <h2>{name1} &rarr;</h2>
-                      <p>Genre:</p>
-                      <p>{genre}</p>
-                      <p>Favourite Character(s):</p>
-                      <p>{FavCast}</p>
-                      <p>Status:</p>
-                      <p>{status}</p>
+                      <p className={styles.p1}>Genre:</p>
+                      <p className={styles.p}>{genre}</p>
+                      <p className={styles.p1}>Favourite Character(s):</p>
+                      <p className={styles.p}>{FavCast}</p>
+                      <p className={styles.p1}>Status:</p>
+                      <p className={styles.p}>{status}</p>
                     </a>
                   </li>
                 );
@@ -237,17 +236,17 @@ export default function Home({ data, page }) {
                           alt={name}
                         />
                         <h2>{name1} &rarr;</h2>
-                        <p>Genre:</p>
-                        <p>{genre}</p>
-                        <p>Favourite Character(s):</p>
-                        <p>{FavCast}</p>
-                        <p>Status:</p>
-                        <p>{status}</p>
+                        <p className={styles.p1}>Genre:</p>
+                        <p className={styles.p}>{genre}</p>
+                        <p className={styles.p1}>Favourite Character(s):</p>
+                        <p className={styles.p}>{FavCast}</p>
+                        <p className={styles.p1}>Status:</p>
+                        <p className={styles.p}>{status}</p>
                       </a>
                     </li>
                   );
                 })
-                : 
+                :
                 movieSeries.map((series) => {
                   const { _id, image, name, genre, FavCast, status } = series;
                   // splits the name string into an array of strings
@@ -269,12 +268,12 @@ export default function Home({ data, page }) {
                           alt={name}
                         />
                         <h2>{name1} &rarr;</h2>
-                        <p>Genre:</p>
-                        <p>{genre}</p>
-                        <p>Favourite Character(s):</p>
-                        <p>{FavCast}</p>
-                        <p>Status:</p>
-                        <p>{status}</p>
+                        <p className={styles.p1}>Genre:</p>
+                      <p className={styles.p}>{genre}</p>
+                      <p className={styles.p1}>Favourite Character(s):</p>
+                      <p className={styles.p}>{FavCast}</p>
+                      <p className={styles.p1}>Status:</p>
+                      <p className={styles.p}>{status}</p>
                       </a>
                     </li>
                   );

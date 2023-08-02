@@ -8,7 +8,7 @@ import { CaretDown, CaretUp } from "phosphor-react";
 
 export async function getServerSideProps({ query }) {
   const page = Number(query.page) || 1;
-  const defaultEndpoint = `https://series-api-nld9.onrender.com/series?page=1&limit=12`;
+  const defaultEndpoint = `https://series-api-nld9.onrender.com/series?page=${page}&limit=12`;
   const res = await fetch(defaultEndpoint);
   const data = await res.json();
   return { props: { page, data } };

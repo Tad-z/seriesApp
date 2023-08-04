@@ -7,7 +7,6 @@ import '../styles/globals.css'
 // export default MyApp
 import Router from "next/router";
 import React from "react";
-import { ColorRing } from "react-loader-spinner";
 import { DotLoader } from "react-spinners";
 
 export default function App({ Component, pageProps }) {

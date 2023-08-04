@@ -10,16 +10,16 @@
   },
   "dependencies": {
     "axios": "^1.2.2",
-    "next": "12.3.1",
+    "next": "^13.4.12",
     "phosphor-react": "^1.4.1",
-    "react": "18.2.0",
-    "react-dom": "18.2.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
     "react-hook-form": "^7.41.3",
     "react-hot": "^0.0.1",
     "react-hot-toast": "^2.4.0"
   },
   "devDependencies": {
     "eslint": "8.23.1",
-    "eslint-config-next": "12.3.1"
+    "eslint-config-next": "^13.4.12"
   }
 }

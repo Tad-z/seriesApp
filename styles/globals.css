@@ -16,6 +16,13 @@ a {
 * {
   box-sizing: border-box;
 }
+
+.loader-spinner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
 /* 
 @media (prefers-color-scheme: dark) {
   html {

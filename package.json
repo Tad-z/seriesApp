@@ -16,7 +16,8 @@
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.41.3",
     "react-hot": "^0.0.1",
-    "react-hot-toast": "^2.4.0"
+    "react-hot-toast": "^2.4.0",
+    "react-loader-spinner": "^5.3.4"
   },
   "devDependencies": {
     "eslint": "8.23.1",

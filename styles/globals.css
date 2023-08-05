@@ -9,6 +9,10 @@ body {
   font-family: "Inter", sans-serif;
 }
 
+span {
+  font-weight: 500;
+}
+
 a {
   color: inherit;
   text-decoration: none;

@@ -126,7 +126,7 @@ export default function Home({ data, page }) {
                   onClick={() => setIsExpanded(!isExpanded)}
                   className={styles.DropdownButton}
                 >
-                  Genre:{isExpanded && <CaretDown size={16} />}
+                  Genre  {isExpanded && <CaretDown size={16} />}
                   {!isExpanded && <CaretUp size={16} />}
                 </button>
                 {isExpanded && (
@@ -158,7 +158,7 @@ export default function Home({ data, page }) {
                   onMouseOver={() => setIsExpandedd(!isExpandedd)}
                   className={styles.DropdownButton}
                 >
-                  Status:{isExpandedd && <CaretDown size={16} />}
+                  Status  {isExpandedd && <CaretDown size={16} />}
                   {!isExpandedd && <CaretUp size={16} />}
                 </button>
                 {isExpandedd && (

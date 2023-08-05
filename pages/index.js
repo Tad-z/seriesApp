@@ -46,31 +46,35 @@ export default function Home({ data, page }) {
       const endpoint = `https://series-api-nld9.onrender.com/sortedSeries?genre=${option}`;
       let res = await fetch(endpoint);
       if (!res.ok) {
-        sortSeriesByStatus();
+        console.error("Failed to fetch data for genre:", res.status);
+        setGenreSeries([]);
+      } else {
+        const data = await res.json();
+        setGenreSeries(data.seriesByGenre || []);
+        setIsWholeSeries(false);
       }
-      const data = await res.json();
-      const series = await data.seriesByGenre;
-      setGenreSeries(series);
-      setIsWholeSeries(false);
-      return genreSeries;
     };
 
     const sortSeriesByStatus = async () => {
       const endpoint = `https://series-api-nld9.onrender.com/sortedSeries/status?status=${option}`;
       let res = await fetch(endpoint);
       if (!res.ok) {
-        sortSeriesByGenre();
+        console.error("Failed to fetch data for status:", res.status);
+        setStatusSeries([]);
+      } else {
+        const data = await res.json();
+        setStatusSeries(data.seriesByStatus || []);
+        setIsWholeSeries(false);
       }
-      const data = await res.json();
-      const series = await data.seriesByStatus;
-      setStatusSeries(series);
-      setIsWholeSeries(false);
-      return statusSeries;
     };
 
     if (option) {
       sortSeriesByStatus();
       sortSeriesByGenre();
+    } else {
+      // Reset genreSeries and statusSeries when option is undefined
+      setGenreSeries([]);
+      setStatusSeries([]);
     }
 
   }, [option]);

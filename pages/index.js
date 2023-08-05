@@ -122,6 +122,7 @@ export default function Home({ data, page }) {
             <div className={styles.dropdownWrapper}>
               <div className={styles.dropdown}>
                 <button
+                  onMouseOver={() => setIsExpanded(!isExpanded)}
                   onClick={() => setIsExpanded(!isExpanded)}
                   className={styles.DropdownButton}
                 >
@@ -134,6 +135,10 @@ export default function Home({ data, page }) {
 
                     {options.map((option) => (
                       <div
+                      onMouseOver={() => {
+                        setOption(option);
+                        // sortSeries();
+                      }}
                         onClick={() => {
                           setOption(option);
                           // sortSeries();
@@ -150,6 +155,7 @@ export default function Home({ data, page }) {
               <div className={styles.dropdown}>
                 <button
                   onClick={() => setIsExpandedd(!isExpandedd)}
+                  onMouseOver={() => setIsExpandedd(!isExpandedd)}
                   className={styles.DropdownButton}
                 >
                   Status:{isExpandedd && <CaretDown size={16} />}
@@ -161,6 +167,10 @@ export default function Home({ data, page }) {
 
                     {optionss.map((option) => (
                       <div
+                      onMouseOver={() => {
+                        setOption(option);
+                        // sortSeries();
+                      }}
                         onClick={() => {
                           setOption(option);
                           // sortSeries();

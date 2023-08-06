@@ -10,8 +10,11 @@ import React from "react";
 import { DotLoader } from "react-spinners";
 
 export default function App({ Component, pageProps }) {
-  const [loading, setLoading] = React.useState(false);
+  const [loading, setLoading] = React.useState(true);
   React.useEffect(() => {
+    setTimeout(() => {
+      setLoading(false);
+    }, 3000);
     const start = () => {
       console.log("start");
       setLoading(true);

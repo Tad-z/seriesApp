@@ -292,6 +292,10 @@
   .horizontal {
     flex-direction: column;
   }
+  .dropdownWrapper { 
+    position: initial;
+    margin: 5px 0 2px;
+  }
 }
 
 @media (max-width: 600px) {
@@ -339,7 +343,7 @@
   .horizontal {
     flex-direction: column;
   }
-  .dropdownWrapper {
+  .dropdownWrapper { 
     position: initial;
     margin: 5px 0 2px;
   }

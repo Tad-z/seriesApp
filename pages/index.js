@@ -7,11 +7,31 @@ import styles from "../styles/Home.module.css";
 import { CaretDown, CaretUp } from "phosphor-react";
 
 export async function getServerSideProps({ query }) {
-  const page = Number(query.page) || 1;
-  const defaultEndpoint = `https://series-api-nld9.onrender.com/series?page=${page}&limit=12`;
-  const res = await fetch(defaultEndpoint);
-  const data = await res.json();
-  return { props: { page, data } };
+  try {
+    // Extract the 'page' parameter from the query, or use page 1 as the default.
+    const page = Number(query.page) || 1;
+
+    // The API endpoint with the 'page' and 'limit' parameters.
+    const defaultEndpoint = `https://series-api-nld9.onrender.com/series?page=${page}&limit=12`;
+
+    // Fetch data from the API.
+    const res = await fetch(defaultEndpoint);
+    
+    // Handle potential errors (e.g., non-2xx status codes).
+    if (!res.ok) {
+      throw new Error('Failed to fetch data from the API.');
+    }
+
+    // Parse the response data.
+    const data = await res.json();
+
+    // Return the fetched data as props to the component.
+    return { props: { page, data } };
+  } catch (error) {
+    // Handle errors gracefully and return fallback data or error messages.
+    console.error('Error fetching data:', error);
+    return { props: { page: 1, data: [] } }; // Fallback data when there's an error.
+  }
 }
 
 export default function Home({ data, page }) {

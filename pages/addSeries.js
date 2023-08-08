@@ -5,9 +5,11 @@ import { useForm } from "react-hook-form";
 import styles from "../styles/addSeries.module.css";
 import toast, { Toaster } from 'react-hot-toast';
 import { getError, postServerData } from "./api/helper";
+import Router from "next/router";
 
 
 export default function AddSeries() {
+ 
   const {
     handleSubmit,
     register,
@@ -33,6 +35,7 @@ export default function AddSeries() {
         toast.error('Something went wrong');
       }
       reset();
+      Router.push("/")
       
     } catch (error) {
       console.log(error);

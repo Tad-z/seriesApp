@@ -16,7 +16,7 @@ export async function getServerSideProps({ query }) {
 
     // Fetch data from the API.
     const res = await fetch(defaultEndpoint);
-    
+
     // Handle potential errors (e.g., non-2xx status codes).
     if (!res.ok) {
       throw new Error('Failed to fetch data from the API.');
@@ -146,67 +146,72 @@ export default function Home({ data, page }) {
             <div className={styles.dropdownWrapper}>
               <div className={styles.dropdown}>
                 <button
-                  onMouseOver={() => setIsExpanded(!isExpanded)}
+                  onMouseOver={() => setIsExpanded(true)}
+                  onMouseOut={() => setIsExpanded(false)}
                   onClick={() => setIsExpanded(!isExpanded)}
                   className={styles.DropdownButton}
                 >
                   <span>Genre</span> &nbsp; {isExpanded && <CaretDown size={16} />}
                   {!isExpanded && <CaretUp size={16} />}
-                </button>
-                {isExpanded && (
-                  <div className={styles.Panel}>
-                    <div className={styles.arrowUp}></div>
 
-                    {options.map((option) => (
-                      <div
-                      onMouseOver={() => {
-                        setOption(option);
-                        // sortSeries();
-                      }}
-                        onClick={() => {
-                          setOption(option);
-                          // sortSeries();
-                        }}
-                        className={styles.List}
-                        key={option}
-                      >
-                        {option}
-                      </div>
-                    ))}
-                  </div>
-                )}
+                  {isExpanded && (
+                    <div className={styles.Panel}>
+                      <div className={styles.arrowUp}></div>
+
+                      {options.map((option) => (
+                        <div
+                          onMouseOver={() => {
+                            setOption(option);
+                            // sortSeries();
+                          }}
+                          onClick={() => {
+                            setOption(option);
+                            // sortSeries();
+                          }}
+                          className={styles.List}
+                          key={option}
+                        >
+                          {option}
+                        </div>
+                      ))}
+
+                    </div>
+                  )}
+                </button>
               </div>
               <div className={styles.dropdown}>
                 <button
+                  onMouseOver={() => setIsExpandedd(true)}
+                  onMouseOut={() => setIsExpandedd(false)}
                   onClick={() => setIsExpandedd(!isExpandedd)}
-                  onMouseOver={() => setIsExpandedd(!isExpandedd)}
                   className={styles.DropdownButton}
                 >
                   <span>Status</span> &nbsp;  {isExpandedd && <CaretDown size={16} />}
                   {!isExpandedd && <CaretUp size={16} />}
-                </button>
-                {isExpandedd && (
-                  <div className={styles.Panel}>
-                    <div className={styles.arrowUp}></div>
 
-                    {optionss.map((option) => (
-                      <div
-                      onMouseOver={() => {
-                        setOption(option);
-                        // sortSeries();
-                      }}
-                        onClick={() => {
-                          setOption(option);
-                          // sortSeries();
-                        }}
-                        className={styles.List}
-                        key={option}
-                      >
-                        {option}
-                      </div>
-                    ))}
-                  </div>
-                )}
+                  {isExpandedd && (
+                    <div className={styles.Panel}>
+                      <div className={styles.arrowUp}></div>
+
+                      {optionss.map((option) => (
+                        <div
+                          onMouseOver={() => {
+                            setOption(option);
+                            // sortSeries();
+                          }}
+                          onClick={() => {
+                            setOption(option);
+                            // sortSeries();
+                          }}
+                          className={styles.List}
+                          key={option}
+                        >
+                          {option}
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </button>
               </div>
             </div>
             {/* <DropDrown name={"Status"} options={["Ongoing", "Finished"]} /> */}
@@ -303,11 +308,11 @@ export default function Home({ data, page }) {
                         />
                         <h2>{name1} &rarr;</h2>
                         <p className={styles.p1}>Genre:</p>
-                      <p className={styles.p}>{genre}</p>
-                      <p className={styles.p1}>Favourite Character(s):</p>
-                      <p className={styles.p}>{FavCast}</p>
-                      <p className={styles.p1}>Status:</p>
-                      <p className={styles.p}>{status}</p>
+                        <p className={styles.p}>{genre}</p>
+                        <p className={styles.p1}>Favourite Character(s):</p>
+                        <p className={styles.p}>{FavCast}</p>
+                        <p className={styles.p1}>Status:</p>
+                        <p className={styles.p}>{status}</p>
                       </a>
                     </li>
                   );

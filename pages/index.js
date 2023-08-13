@@ -1,5 +1,5 @@
 import Head from "next/head";
-import Image from "next/image";
+
 import Link from "next/link";
 import { useState, useEffect } from "react";
 
@@ -236,7 +236,7 @@ export default function Home({ data, page }) {
                 return (
                   <li key={_id} className={styles.card}>
                     <a href="#">
-                      <Image
+                      <img
                         className={styles.image}
                         src={`https://series-api-nld9.onrender.com/${image}`}
                         alt={name}
@@ -269,7 +269,7 @@ export default function Home({ data, page }) {
                   return (
                     <li key={_id} className={styles.card}>
                       <a href="#">
-                        <Image
+                        <img
                           className={styles.image}
                           src={`https://series-api-nld9.onrender.com/${image}`}
                           alt={name}
@@ -301,7 +301,7 @@ export default function Home({ data, page }) {
                   return (
                     <li key={_id} className={styles.card}>
                       <a href="#">
-                        <Image
+                        <img
                           className={styles.image}
                           src={`https://series-api-nld9.onrender.com/${image}`}
                           alt={name}
@@ -346,7 +346,7 @@ export default function Home({ data, page }) {
           >
             Powered by{" "}
             <span className={styles.logo}>
-              <Image
+              <img
                 src="/vercel.svg"
                 alt="Vercel Logo"
                 width={72}

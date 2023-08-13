@@ -236,7 +236,7 @@ export default function Home({ data, page }) {
                 return (
                   <li key={_id} className={styles.card}>
                     <a href="#">
-                      <img
+                      <Image
                         className={styles.image}
                         src={`https://series-api-nld9.onrender.com/${image}`}
                         alt={name}
@@ -269,7 +269,7 @@ export default function Home({ data, page }) {
                   return (
                     <li key={_id} className={styles.card}>
                       <a href="#">
-                        <img
+                        <Image
                           className={styles.image}
                           src={`https://series-api-nld9.onrender.com/${image}`}
                           alt={name}
@@ -301,7 +301,7 @@ export default function Home({ data, page }) {
                   return (
                     <li key={_id} className={styles.card}>
                       <a href="#">
-                        <img
+                        <Image
                           className={styles.image}
                           src={`https://series-api-nld9.onrender.com/${image}`}
                           alt={name}

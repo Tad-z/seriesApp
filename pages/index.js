@@ -2,6 +2,7 @@ import Head from "next/head";
 
 import Link from "next/link";
 import { useState, useEffect } from "react";
+import axios from "axios";
 
 import styles from "../styles/Home.module.css";
 import { CaretDown, CaretUp } from "phosphor-react";
@@ -15,15 +16,15 @@ export async function getServerSideProps({ query }) {
     const defaultEndpoint = `https://series-api-nld9.onrender.com/series?page=${page}&limit=12`;
 
     // Fetch data from the API.
-    const res = await fetch(defaultEndpoint);
+    const res = await axios.get(defaultEndpoint);
 
     // Handle potential errors (e.g., non-2xx status codes).
-    if (!res.ok) {
+    if (res.status !== 200) {
       throw new Error('Failed to fetch data from the API.');
     }
 
     // Parse the response data.
-    const data = await res.json();
+    const data = res.data;
 
     // Return the fetched data as props to the component.
     return { props: { page, data } };

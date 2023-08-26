@@ -12,13 +12,14 @@ import { DotLoader } from "react-spinners";
 export default function App({ Component, pageProps }) {
   const [loading, setLoading] = React.useState(true);
   React.useEffect(() => {
-    setTimeout(() => {
-      setLoading(false);
-    }, 3000);
+   
     const start = () => {
       console.log("start");
       setLoading(true);
     };
+    setTimeout(() => {
+      setLoading(false);
+    }, 3000);
     const end = () => {
       console.log("finished");
       setLoading(false);

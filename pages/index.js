@@ -13,7 +13,7 @@ export async function getServerSideProps({ query }) {
     const page = Number(query.page) || 1;
 
     // The API endpoint with the 'page' and 'limit' parameters.
-    const defaultEndpoint = `https://series-api-nld9.onrender.com/series?page=${page}&limit=12`;
+    const defaultEndpoint = `https://series-api-nld9.onrender.com/series?page=${page}`;
 
     // Fetch data from the API.
     const res = await axios.get(defaultEndpoint);

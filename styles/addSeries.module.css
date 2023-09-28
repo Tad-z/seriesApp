@@ -89,16 +89,12 @@
 .seriesButton {
     border-radius: 6px;
     width: 11rem;
-    background: linear-gradient(
-        120deg,
-        #3f2669,
-        #1c093c
-    );
+    background-color: rgb(61, 60, 60);
     margin: 0.25rem;
     padding: 0.5rem;
     border: none;
     color: white;
-    box-shadow: 0 0 0 2px #24234d;
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
     outline: none;
 }
 

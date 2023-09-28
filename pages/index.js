@@ -108,13 +108,9 @@ export default function Home({ data, page }) {
           <div>
             <p href="/">Best Series App</p>
           </div>
-          <div>
-            <ul>
-              <li>
-                <Link href="/addSeries">Add Your Favourite Series</Link>
-              </li>
-            </ul>
-          </div>
+          <a>
+            <Link href="/addSeries">Add Your Favourite Series</Link>
+          </a>
         </div>
       </header>
       <section className={styles.section}>

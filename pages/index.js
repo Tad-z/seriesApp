@@ -9,29 +9,21 @@ import { CaretDown, CaretUp } from "phosphor-react";
 
 export async function getServerSideProps({ query }) {
   try {
-    // Extract the 'page' parameter from the query, or use page 1 as the default.
     const page = Number(query.page) || 1;
 
-    // The API endpoint with the 'page' and 'limit' parameters.
-    const defaultEndpoint = `https://series-api-nld9.onrender.com/series?page=${page}`;
+    const defaultEndpoint = `https://series-api-nld9.onrender.com/series/page?page=${page}`;
 
-    // Fetch data from the API.
     const res = await axios.get(defaultEndpoint);
 
-    // Handle potential errors (e.g., non-2xx status codes).
     if (res.status !== 200) {
       throw new Error('Failed to fetch data from the API.');
     }
-
-    // Parse the response data.
     const data = res.data;
 
-    // Return the fetched data as props to the component.
     return { props: { page, data } };
   } catch (error) {
-    // Handle errors gracefully and return fallback data or error messages.
     console.error('Error fetching data:', error);
-    return { props: { page: 1, data: [] } }; // Fallback data when there's an error.
+    return { props: { page: 1, data: [] } };
   }
 }
 
@@ -41,7 +33,8 @@ export default function Home({ data, page }) {
   const [isExpanded, setIsExpanded] = useState(false);
   const [isExpandedd, setIsExpandedd] = useState(false);
   const [option, setOption] = useState(undefined);
-  // const [status, setStatus] = useState(undefined);
+  const [searchSeries, setSearchSeries] = useState([]);
+  console.log({searchSeries});
   const [genreSeries, setGenreSeries] = useState([]);
   const [statusSeries, setStatusSeries] = useState([]);
   const [isWholeSeries, setIsWholeSeries] = useState(true);
@@ -57,12 +50,29 @@ export default function Home({ data, page }) {
   ]
   const optionss = ["Ongoing", "Finished"];
   const [input, setInput] = useState("");
-  const movieSeries = series.filter((series) =>
-    series.name.toLowerCase().includes(input.toLowerCase())
-  );
+  let movieSeries = series;
+  if (input)  movieSeries = searchSeries.filter((series) => series.name.toLowerCase().includes(input.toLowerCase()));
+  
+  
+
+  
 
 
   useEffect(() => {
+    async function getSeries() {
+      const endpoint = `https://series-api-nld9.onrender.com/series/`;
+          let res = await fetch(endpoint);
+          if (!res.ok) {
+            console.error("Failed to fetch series:", res.status);
+            setSearchSeries([]);
+          } else {
+            const data = await res.json();
+            console.log({data})
+            setSearchSeries(data.series || []);
+          }
+    }
+    getSeries();
+
     const sortSeriesByGenre = async () => {
       const endpoint = `https://series-api-nld9.onrender.com/sortedSeries?genre=${option}`;
       let res = await fetch(endpoint);
@@ -99,6 +109,7 @@ export default function Home({ data, page }) {
     }
 
   }, [option]);
+  
   // const genreSeries = data.seriesByGenre;
 
   return (

@@ -130,6 +130,18 @@ export default function AddSeries() {
                 placeholder="Your favourite series character(s) here"
               ></input>
             </div>
+            <div className={styles.column}>
+              <label className={styles.label} htmlFor="Link">
+                Downloadable Link
+              </label>
+              <input
+                {...register("Link", { required: true })}
+                className={styles.input}
+                type="text"
+                id="Link"
+                placeholder="A link to where others can download the series"
+              ></input>
+            </div>
           </div>
           <button type="submit" className={styles.button}>
             Submit

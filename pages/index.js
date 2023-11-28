@@ -230,7 +230,7 @@ export default function Home({ data, page }) {
               genreSeries !== null &&
               Object.keys(genreSeries).length > 0
               ? genreSeries.map((seriess) => {
-                const { _id, image, name, genre, FavCast, status } = seriess;
+                const { _id, image, name, genre, FavCast, status, link } = seriess;
                 // splits the name string into an array of strings
                 // whenever a blank space is encountered
                 // loops through each string in the array and capitalize the first letter
@@ -243,7 +243,7 @@ export default function Home({ data, page }) {
 
                 return (
                   <li key={_id} className={styles.card}>
-                    <a href="#">
+                    <a href={link}>
                       <img
                         className={styles.image}
                         src={`https://series-api-nld9.onrender.com/${image}`}
@@ -264,7 +264,7 @@ export default function Home({ data, page }) {
                 statusSeries !== null &&
                 Object.keys(statusSeries).length > 0
                 ? statusSeries.map((seriess) => {
-                  const { _id, image, name, genre, FavCast, status } = seriess;
+                  const { _id, image, name, genre, FavCast, status, link } = seriess;
                   // splits the name string into an array of strings
                   // whenever a blank space is encountered
                   // loops through each string in the array and capitalize the first letter
@@ -276,7 +276,7 @@ export default function Home({ data, page }) {
                   const name1 = arr.join(" ");
                   return (
                     <li key={_id} className={styles.card}>
-                      <a href="#">
+                      <a href={link}>
                         <img
                           className={styles.image}
                           src={`https://series-api-nld9.onrender.com/${image}`}
@@ -295,7 +295,7 @@ export default function Home({ data, page }) {
                 })
                 :
                 movieSeries.map((series) => {
-                  const { _id, image, name, genre, FavCast, status } = series;
+                  const { _id, image, name, genre, FavCast, status, link } = series;
                   // splits the name string into an array of strings
                   // whenever a blank space is encountered
                   // loops through each string in the array and capitalize the first letter
@@ -308,7 +308,7 @@ export default function Home({ data, page }) {
 
                   return (
                     <li key={_id} className={styles.card}>
-                      <a href="#">
+                      <a href={link}>
                         <img
                           className={styles.image}
                           src={`https://series-api-nld9.onrender.com/${image}`}
@@ -347,21 +347,7 @@ export default function Home({ data, page }) {
         </main>
 
         <footer className={styles.footer}>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Powered by{" "}
-            <span className={styles.logo}>
-              <img
-                src="/vercel.svg"
-                alt="Vercel Logo"
-                width={72}
-                height={16}
-              />
-            </span>
-          </a>
+          <p>Developed By Tade @2022</p>
         </footer>
       </div>
     </>

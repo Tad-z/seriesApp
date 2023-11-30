@@ -34,7 +34,7 @@ export default function Home({ data, page }) {
   const [isExpandedd, setIsExpandedd] = useState(false);
   const [option, setOption] = useState(undefined);
   const [searchSeries, setSearchSeries] = useState([]);
-  console.log({searchSeries});
+  console.log({ searchSeries });
   const [genreSeries, setGenreSeries] = useState([]);
   const [statusSeries, setStatusSeries] = useState([]);
   const [isWholeSeries, setIsWholeSeries] = useState(true);
@@ -51,25 +51,25 @@ export default function Home({ data, page }) {
   const optionss = ["Ongoing", "Finished"];
   const [input, setInput] = useState("");
   let movieSeries = series;
-  if (input)  movieSeries = searchSeries.filter((series) => series.name.toLowerCase().includes(input.toLowerCase()));
-  
-  
+  if (input) movieSeries = searchSeries.filter((series) => series.name.toLowerCase().includes(input.toLowerCase()));
 
-  
+
+
+
 
 
   useEffect(() => {
     async function getSeries() {
       const endpoint = `https://series-api-nld9.onrender.com/series/`;
-          let res = await fetch(endpoint);
-          if (!res.ok) {
-            console.error("Failed to fetch series:", res.status);
-            setSearchSeries([]);
-          } else {
-            const data = await res.json();
-            console.log({data})
-            setSearchSeries(data.series || []);
-          }
+      let res = await fetch(endpoint);
+      if (!res.ok) {
+        console.error("Failed to fetch series:", res.status);
+        setSearchSeries([]);
+      } else {
+        const data = await res.json();
+        console.log({ data })
+        setSearchSeries(data.series || []);
+      }
     }
     getSeries();
 
@@ -109,7 +109,7 @@ export default function Home({ data, page }) {
     }
 
   }, [option]);
-  
+
   // const genreSeries = data.seriesByGenre;
 
   return (
@@ -240,13 +240,28 @@ export default function Home({ data, page }) {
                   arr[i] = arr[i].charAt(0).toUpperCase() + arr[i].slice(1);
                 }
                 const name1 = arr.join(" ");
+                function extractFilename(path) {
+
+                  const pathSegments = path.split('/');
+
+                  if (pathSegments[0].includes('uploads')) {
+                    return path;
+                  }
+
+                  const filename = "uploads/" + pathSegments[pathSegments.length - 1];
+                  return filename;
+                }
+
+                // Example usage:
+                const filename = extractFilename(image);
+                console.log(filename);
 
                 return (
                   <li key={_id} className={styles.card}>
                     <a href={link}>
                       <img
                         className={styles.image}
-                        src={`https://series-api-nld9.onrender.com/${image}`}
+                        src={`https://series-api-nld9.onrender.com/${filename}`}
                         alt={name}
                       />
                       <h2>{name1} &rarr;</h2>
@@ -274,12 +289,28 @@ export default function Home({ data, page }) {
                     arr[i] = arr[i].charAt(0).toUpperCase() + arr[i].slice(1);
                   }
                   const name1 = arr.join(" ");
+
+                  function extractFilename(path) {
+
+                    const pathSegments = path.split('/');
+                  
+                    if (pathSegments[0].includes('uploads')) {
+                      return path;
+                    }
+                  
+                    const filename ="uploads/" + pathSegments[pathSegments.length - 1];
+                    return filename;
+                  }
+                  
+                  // Example usage:
+                  const filename = extractFilename(image);
+                  console.log(filename);
                   return (
                     <li key={_id} className={styles.card}>
                       <a href={link}>
                         <img
                           className={styles.image}
-                          src={`https://series-api-nld9.onrender.com/${image}`}
+                          src={`https://series-api-nld9.onrender.com/${filename}`}
                           alt={name}
                         />
                         <h2>{name1} &rarr;</h2>
@@ -306,12 +337,28 @@ export default function Home({ data, page }) {
                   }
                   const name1 = arr.join(" ");
 
+                  function extractFilename(path) {
+
+                    const pathSegments = path.split('/');
+                  
+                    if (pathSegments[0].includes('uploads')) {
+                      return path;
+                    }
+                  
+                    const filename ="uploads/" + pathSegments[pathSegments.length - 1];
+                    return filename;
+                  }
+                  
+                  // Example usage:
+                  const filename = extractFilename(image);
+                  console.log(filename);
+
                   return (
                     <li key={_id} className={styles.card}>
                       <a href={link}>
                         <img
                           className={styles.image}
-                          src={`https://series-api-nld9.onrender.com/${image}`}
+                          src={`https://series-api-nld9.onrender.com/${filename}`}
                           alt={name}
                         />
                         <h2>{name1} &rarr;</h2>

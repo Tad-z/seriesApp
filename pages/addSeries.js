@@ -25,7 +25,7 @@ export default function AddSeries() {
       formData.append("genre", data.genre);
       formData.append("FavCast", data.FavCast);
       formData.append("status", data.status);
-      formData.append("link", data.Link);
+      formData.append("link", data.link);
       const response = await postServerData(
         `https://series-api-nld9.onrender.com/series`,
         formData
@@ -132,14 +132,14 @@ export default function AddSeries() {
               ></input>
             </div>
             <div className={styles.column}>
-              <label className={styles.label} htmlFor="Link">
+              <label className={styles.label} htmlFor="link">
                 Downloadable Link
               </label>
               <input
-                {...register("Link", { required: true })}
+                {...register("link", { required: true })}
                 className={styles.input}
                 type="text"
-                id="Link"
+                id="link"
                 placeholder="A link to where others can download the series"
               ></input>
             </div>

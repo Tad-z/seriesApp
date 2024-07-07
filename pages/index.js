@@ -240,18 +240,18 @@ export default function Home({ data, page }) {
                   arr[i] = arr[i].charAt(0).toUpperCase() + arr[i].slice(1);
                 }
                 const name1 = arr.join(" ");
+
                 function extractFilename(path) {
+                  // Handle both Windows and Unix-style paths
+                  const pathSegments = path.split(/[/\\]/);
 
-                  const pathSegments = path.split('/');
-
-                  if (pathSegments[0].includes('uploads')) {
-                    return path;
+                  // Check if any part of the path includes 'uploads'
+                  if (pathSegments.some(segment => segment.includes('uploads'))) {
+                    // Return the last segment prefixed by 'uploads/'
+                    return 'uploads/' + pathSegments[pathSegments.length - 1];
                   }
 
-                  const filename = "uploads/" + pathSegments[pathSegments.length - 1];
-                  return filename;
                 }
-
                 const filename = extractFilename(image);
                 console.log(filename);
 
@@ -293,16 +293,16 @@ export default function Home({ data, page }) {
                   function extractFilename(path) {
 
                     const pathSegments = path.split('/');
-                  
+
                     if (pathSegments[0].includes('uploads')) {
                       return path;
                     }
-                  
-                    const filename ="uploads/" + pathSegments[pathSegments.length - 1];
+
+                    const filename = "uploads/" + pathSegments[pathSegments.length - 1];
                     return filename;
                   }
-                  
-                 
+
+
 
 
                   const filename = extractFilename(image);
@@ -342,16 +342,16 @@ export default function Home({ data, page }) {
                   function extractFilename(path) {
 
                     const pathSegments = path.split('/');
-                  
+
                     if (pathSegments[0].includes('uploads')) {
                       return path;
                     }
-                  
-                    const filename ="uploads/" + pathSegments[pathSegments.length - 1];
+
+                    const filename = "uploads/" + pathSegments[pathSegments.length - 1];
                     return filename;
                   }
-                  
-                 
+
+
 
 
                   const filename = extractFilename(image);

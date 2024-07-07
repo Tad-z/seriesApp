@@ -11,7 +11,7 @@ export async function getServerSideProps({ query }) {
   try {
     const page = Number(query.page) || 1;
 
-    const defaultEndpoint = `https://series-api-nld9.onrender.com/series/page?page=${page}`;
+    const defaultEndpoint = `https://series-api-3bcx.onrender.com/series/page?page=${page}`;
 
     const res = await axios.get(defaultEndpoint);
 
@@ -60,7 +60,7 @@ export default function Home({ data, page }) {
 
   useEffect(() => {
     async function getSeries() {
-      const endpoint = `https://series-api-nld9.onrender.com/series/`;
+      const endpoint = `https://series-api-3bcx.onrender.com/series/`;
       let res = await fetch(endpoint);
       if (!res.ok) {
         console.error("Failed to fetch series:", res.status);
@@ -74,7 +74,7 @@ export default function Home({ data, page }) {
     getSeries();
 
     const sortSeriesByGenre = async () => {
-      const endpoint = `https://series-api-nld9.onrender.com/sortedSeries?genre=${option}`;
+      const endpoint = `https://series-api-3bcx.onrender.com/sortedSeries?genre=${option}`;
       let res = await fetch(endpoint);
       if (!res.ok) {
         console.error("Failed to fetch data for genre:", res.status);
@@ -87,7 +87,7 @@ export default function Home({ data, page }) {
     };
 
     const sortSeriesByStatus = async () => {
-      const endpoint = `https://series-api-nld9.onrender.com/sortedSeries/status?status=${option}`;
+      const endpoint = `https://series-api-3bcx.onrender.com/sortedSeries/status?status=${option}`;
       let res = await fetch(endpoint);
       if (!res.ok) {
         console.error("Failed to fetch data for status:", res.status);
@@ -252,16 +252,16 @@ export default function Home({ data, page }) {
                   return filename;
                 }
 
-                // Example usage:
                 const filename = extractFilename(image);
                 console.log(filename);
+
 
                 return (
                   <li key={_id} className={styles.card}>
                     <a href={link}>
                       <img
                         className={styles.image}
-                        src={`https://series-api-nld9.onrender.com/${filename}`}
+                        src={`https://series-api-3bcx.onrender.com/${filename}`}
                         alt={name}
                       />
                       <h2>{name1} &rarr;</h2>
@@ -302,7 +302,9 @@ export default function Home({ data, page }) {
                     return filename;
                   }
                   
-                  // Example usage:
+                 
+
+
                   const filename = extractFilename(image);
                   console.log(filename);
                   return (
@@ -310,7 +312,7 @@ export default function Home({ data, page }) {
                       <a href={link}>
                         <img
                           className={styles.image}
-                          src={`https://series-api-nld9.onrender.com/${filename}`}
+                          src={`https://series-api-3bcx.onrender.com/${filename}`}
                           alt={name}
                         />
                         <h2>{name1} &rarr;</h2>
@@ -349,7 +351,9 @@ export default function Home({ data, page }) {
                     return filename;
                   }
                   
-                  // Example usage:
+                 
+
+
                   const filename = extractFilename(image);
                   console.log(filename);
 
@@ -358,7 +362,7 @@ export default function Home({ data, page }) {
                       <a href={link}>
                         <img
                           className={styles.image}
-                          src={`https://series-api-nld9.onrender.com/${filename}`}
+                          src={`https://series-api-3bcx.onrender.com/${filename}`}
                           alt={name}
                         />
                         <h2>{name1} &rarr;</h2>

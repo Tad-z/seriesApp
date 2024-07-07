@@ -242,6 +242,7 @@ export default function Home({ data, page }) {
                 const name1 = arr.join(" ");
 
                 function extractFilename(path) {
+                  console.log(path);
                   // Handle both Windows and Unix-style paths
                   const pathSegments = path.split(/[/\\]/);
 

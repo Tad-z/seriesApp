@@ -242,7 +242,7 @@ export default function Home({ data, page }) {
                 const name1 = arr.join(" ");
 
                 function extractFilename(path) {
-                  console.log(path);
+                  console.log("p", path);
                   // Handle both Windows and Unix-style paths
                   const pathSegments = path.split(/[/\\]/);
 
@@ -254,7 +254,7 @@ export default function Home({ data, page }) {
 
                 }
                 const filename = extractFilename(image);
-                console.log(filename);
+                // console.log(filename);
 
 
                 return (
@@ -292,22 +292,23 @@ export default function Home({ data, page }) {
                   const name1 = arr.join(" ");
 
                   function extractFilename(path) {
+                    console.log("p", path);
+                    // Handle both Windows and Unix-style paths
+                    const pathSegments = path.split(/[/\\]/);
 
-                    const pathSegments = path.split('/');
-
-                    if (pathSegments[0].includes('uploads')) {
-                      return path;
+                    // Check if any part of the path includes 'uploads'
+                    if (pathSegments.some(segment => segment.includes('uploads'))) {
+                      // Return the last segment prefixed by 'uploads/'
+                      return 'uploads/' + pathSegments[pathSegments.length - 1];
                     }
 
-                    const filename = "uploads/" + pathSegments[pathSegments.length - 1];
-                    return filename;
                   }
 
 
 
 
                   const filename = extractFilename(image);
-                  console.log(filename);
+                  // console.log(filename);
                   return (
                     <li key={_id} className={styles.card}>
                       <a href={link}>
@@ -341,22 +342,23 @@ export default function Home({ data, page }) {
                   const name1 = arr.join(" ");
 
                   function extractFilename(path) {
+                    console.log("p", path);
+                    // Handle both Windows and Unix-style paths
+                    const pathSegments = path.split(/[/\\]/);
 
-                    const pathSegments = path.split('/');
-
-                    if (pathSegments[0].includes('uploads')) {
-                      return path;
+                    // Check if any part of the path includes 'uploads'
+                    if (pathSegments.some(segment => segment.includes('uploads'))) {
+                      // Return the last segment prefixed by 'uploads/'
+                      return 'uploads/' + pathSegments[pathSegments.length - 1];
                     }
 
-                    const filename = "uploads/" + pathSegments[pathSegments.length - 1];
-                    return filename;
                   }
 
 
 
 
                   const filename = extractFilename(image);
-                  console.log(filename);
+                  // console.log(filename);
 
                   return (
                     <li key={_id} className={styles.card}>

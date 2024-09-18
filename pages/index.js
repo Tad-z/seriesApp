@@ -11,7 +11,7 @@ export async function getServerSideProps({ query }) {
   try {
     const page = Number(query.page) || 1;
 
-    const defaultEndpoint = `https://series-api-3bcx.onrender.com/series/page?page=${page}`;
+    const defaultEndpoint = `https://seriesapi-kcln.onrender.com/series/page?page=${page}`;
 
     const res = await axios.get(defaultEndpoint);
 
@@ -60,7 +60,7 @@ export default function Home({ data, page }) {
 
   useEffect(() => {
     async function getSeries() {
-      const endpoint = `https://series-api-3bcx.onrender.com/series/`;
+      const endpoint = `https://seriesapi-kcln.onrender.com/series/`;
       let res = await fetch(endpoint);
       if (!res.ok) {
         console.error("Failed to fetch series:", res.status);
@@ -74,7 +74,7 @@ export default function Home({ data, page }) {
     getSeries();
 
     const sortSeriesByGenre = async () => {
-      const endpoint = `https://series-api-3bcx.onrender.com/sortedSeries?genre=${option}`;
+      const endpoint = `https://seriesapi-kcln.onrender.com/sortedSeries?genre=${option}`;
       let res = await fetch(endpoint);
       if (!res.ok) {
         console.error("Failed to fetch data for genre:", res.status);
@@ -87,7 +87,7 @@ export default function Home({ data, page }) {
     };
 
     const sortSeriesByStatus = async () => {
-      const endpoint = `https://series-api-3bcx.onrender.com/sortedSeries/status?status=${option}`;
+      const endpoint = `https://seriesapi-kcln.onrender.com/sortedSeries/status?status=${option}`;
       let res = await fetch(endpoint);
       if (!res.ok) {
         console.error("Failed to fetch data for status:", res.status);
@@ -262,7 +262,7 @@ export default function Home({ data, page }) {
                     <a href={link}>
                       <img
                         className={styles.image}
-                        src={`https://series-api-3bcx.onrender.com/${filename}`}
+                        src={`https://seriesapi-kcln.onrender.com/${filename}`}
                         alt={name}
                       />
                       <h2>{name1} &rarr;</h2>
@@ -314,7 +314,7 @@ export default function Home({ data, page }) {
                       <a href={link}>
                         <img
                           className={styles.image}
-                          src={`https://series-api-3bcx.onrender.com/${filename}`}
+                          src={`https://seriesapi-kcln.onrender.com/${filename}`}
                           alt={name}
                         />
                         <h2>{name1} &rarr;</h2>
@@ -365,7 +365,7 @@ export default function Home({ data, page }) {
                       <a href={link}>
                         <img
                           className={styles.image}
-                          src={`https://series-api-3bcx.onrender.com/${filename}`}
+                          src={`https://seriesapi-kcln.onrender.com/${filename}`}
                           alt={name}
                         />
                         <h2>{name1} &rarr;</h2>

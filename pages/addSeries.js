@@ -27,7 +27,7 @@ export default function AddSeries() {
       formData.append("status", data.status);
       formData.append("link", data.link);
       const response = await postServerData(
-        `https://series-api-3bcx.onrender.com/series`,
+        `https://seriesapi-kcln.onrender.com/series`,
         formData
       );
       if (response) {

@@ -266,6 +266,7 @@ export default function Home({ data, page }) {
                       <img
                         className={styles.image}
                         src={imageUrl}
+                        loading="lazy"
                         alt={name}
                       />
                       <h2>{name1} &rarr;</h2>
@@ -322,6 +323,7 @@ export default function Home({ data, page }) {
                       <img
                         className={styles.image}
                         src={imageUrl}
+                        loading="lazy"
                         alt={name}
                       />
                       <h2>{name1} &rarr;</h2>
@@ -375,6 +377,7 @@ export default function Home({ data, page }) {
                       <img
                         className={styles.image}
                         src={imageUrl}
+                        loading="lazy"
                         alt={name}
                       />
                       <h2>{name1} &rarr;</h2>

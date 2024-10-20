@@ -230,19 +230,17 @@ export default function Home({ data, page }) {
               genreSeries !== null &&
               Object.keys(genreSeries).length > 0
               ? genreSeries.map((seriess) => {
-                const { _id, image, name, genre, FavCast, status, link } = seriess;
-                // splits the name string into an array of strings
-                // whenever a blank space is encountered
-                // loops through each string in the array and capitalize the first letter
-                // joins the array of strings into a single string
+                const { _id, image, name, genre, FavCast, status, link } = series;
+
+                // Capitalize the first letter of each word in the name
                 const arr = name.split(" ");
-                for (var i = 0; i < arr.length; i++) {
+                for (let i = 0; i < arr.length; i++) {
                   arr[i] = arr[i].charAt(0).toUpperCase() + arr[i].slice(1);
                 }
                 const name1 = arr.join(" ");
 
+                // Function to extract the filename for local images (from Multer)
                 function extractFilename(path) {
-                  console.log("p", path);
                   // Handle both Windows and Unix-style paths
                   const pathSegments = path.split(/[/\\]/);
 
@@ -251,18 +249,23 @@ export default function Home({ data, page }) {
                     // Return the last segment prefixed by 'uploads/'
                     return 'uploads/' + pathSegments[pathSegments.length - 1];
                   }
-
                 }
-                const filename = extractFilename(image);
-                // console.log(filename);
 
+                // Determine whether the image is a Cloudinary URL or a local file path
+                let imageUrl = image; // Assume it's a Cloudinary URL by default
+
+                // If the image doesn't start with 'http', assume it's a local file
+                if (!image.startsWith('http')) {
+                  const filename = extractFilename(image);
+                  imageUrl = `https://seriesapi-kcln.onrender.com/${filename}`;
+                }
 
                 return (
                   <li key={_id} className={styles.card}>
                     <a href={link}>
                       <img
                         className={styles.image}
-                        src={`https://seriesapi-kcln.onrender.com/${filename}`}
+                        src={imageUrl}
                         alt={name}
                       />
                       <h2>{name1} &rarr;</h2>
@@ -275,6 +278,7 @@ export default function Home({ data, page }) {
                     </a>
                   </li>
                 );
+
               })
               : statusSeries !== undefined &&
                 statusSeries !== null &&
@@ -291,42 +295,45 @@ export default function Home({ data, page }) {
                   }
                   const name1 = arr.join(" ");
 
-                  function extractFilename(path) {
-                    console.log("p", path);
-                    // Handle both Windows and Unix-style paths
-                    const pathSegments = path.split(/[/\\]/);
+                   // Function to extract the filename for local images (from Multer)
+                function extractFilename(path) {
+                  // Handle both Windows and Unix-style paths
+                  const pathSegments = path.split(/[/\\]/);
 
-                    // Check if any part of the path includes 'uploads'
-                    if (pathSegments.some(segment => segment.includes('uploads'))) {
-                      // Return the last segment prefixed by 'uploads/'
-                      return 'uploads/' + pathSegments[pathSegments.length - 1];
-                    }
-
+                  // Check if any part of the path includes 'uploads'
+                  if (pathSegments.some(segment => segment.includes('uploads'))) {
+                    // Return the last segment prefixed by 'uploads/'
+                    return 'uploads/' + pathSegments[pathSegments.length - 1];
                   }
+                }
 
+                // Determine whether the image is a Cloudinary URL or a local file path
+                let imageUrl = image; // Assume it's a Cloudinary URL by default
 
-
-
+                // If the image doesn't start with 'http', assume it's a local file
+                if (!image.startsWith('http')) {
                   const filename = extractFilename(image);
-                  // console.log(filename);
-                  return (
-                    <li key={_id} className={styles.card}>
-                      <a href={link}>
-                        <img
-                          className={styles.image}
-                          src={`https://seriesapi-kcln.onrender.com/${filename}`}
-                          alt={name}
-                        />
-                        <h2>{name1} &rarr;</h2>
-                        <p className={styles.p1}>Genre:</p>
-                        <p className={styles.p}>{genre}</p>
-                        <p className={styles.p1}>Favourite Character(s):</p>
-                        <p className={styles.p}>{FavCast}</p>
-                        <p className={styles.p1}>Status:</p>
-                        <p className={styles.p}>{status}</p>
-                      </a>
-                    </li>
-                  );
+                  imageUrl = `https://seriesapi-kcln.onrender.com/${filename}`;
+                }
+
+                return (
+                  <li key={_id} className={styles.card}>
+                    <a href={link}>
+                      <img
+                        className={styles.image}
+                        src={imageUrl}
+                        alt={name}
+                      />
+                      <h2>{name1} &rarr;</h2>
+                      <p className={styles.p1}>Genre:</p>
+                      <p className={styles.p}>{genre}</p>
+                      <p className={styles.p1}>Favourite Character(s):</p>
+                      <p className={styles.p}>{FavCast}</p>
+                      <p className={styles.p1}>Status:</p>
+                      <p className={styles.p}>{status}</p>
+                    </a>
+                  </li>
+                );
                 })
                 :
                 movieSeries.map((series) => {
@@ -341,43 +348,45 @@ export default function Home({ data, page }) {
                   }
                   const name1 = arr.join(" ");
 
-                  function extractFilename(path) {
-                    console.log("p", path);
-                    // Handle both Windows and Unix-style paths
-                    const pathSegments = path.split(/[/\\]/);
+                   // Function to extract the filename for local images (from Multer)
+                function extractFilename(path) {
+                  // Handle both Windows and Unix-style paths
+                  const pathSegments = path.split(/[/\\]/);
 
-                    // Check if any part of the path includes 'uploads'
-                    if (pathSegments.some(segment => segment.includes('uploads'))) {
-                      // Return the last segment prefixed by 'uploads/'
-                      return 'uploads/' + pathSegments[pathSegments.length - 1];
-                    }
-
+                  // Check if any part of the path includes 'uploads'
+                  if (pathSegments.some(segment => segment.includes('uploads'))) {
+                    // Return the last segment prefixed by 'uploads/'
+                    return 'uploads/' + pathSegments[pathSegments.length - 1];
                   }
+                }
 
+                // Determine whether the image is a Cloudinary URL or a local file path
+                let imageUrl = image; // Assume it's a Cloudinary URL by default
 
-
-
+                // If the image doesn't start with 'http', assume it's a local file
+                if (!image.startsWith('http')) {
                   const filename = extractFilename(image);
-                  // console.log(filename);
+                  imageUrl = `https://seriesapi-kcln.onrender.com/${filename}`;
+                }
 
-                  return (
-                    <li key={_id} className={styles.card}>
-                      <a href={link}>
-                        <img
-                          className={styles.image}
-                          src={`https://seriesapi-kcln.onrender.com/${filename}`}
-                          alt={name}
-                        />
-                        <h2>{name1} &rarr;</h2>
-                        <p className={styles.p1}>Genre:</p>
-                        <p className={styles.p}>{genre}</p>
-                        <p className={styles.p1}>Favourite Character(s):</p>
-                        <p className={styles.p}>{FavCast}</p>
-                        <p className={styles.p1}>Status:</p>
-                        <p className={styles.p}>{status}</p>
-                      </a>
-                    </li>
-                  );
+                return (
+                  <li key={_id} className={styles.card}>
+                    <a href={link}>
+                      <img
+                        className={styles.image}
+                        src={imageUrl}
+                        alt={name}
+                      />
+                      <h2>{name1} &rarr;</h2>
+                      <p className={styles.p1}>Genre:</p>
+                      <p className={styles.p}>{genre}</p>
+                      <p className={styles.p1}>Favourite Character(s):</p>
+                      <p className={styles.p}>{FavCast}</p>
+                      <p className={styles.p1}>Status:</p>
+                      <p className={styles.p}>{status}</p>
+                    </a>
+                  </li>
+                );
                 })}
           </ul>
           <div>

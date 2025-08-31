@@ -6,6 +6,7 @@ import axios from "axios";
 
 import styles from "../styles/Home.module.css";
 import { CaretDown, CaretUp } from "phosphor-react";
+import { DotLoader } from "react-spinners";
 
 // ==============================
 // Retry fetch util

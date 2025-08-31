@@ -63,6 +63,14 @@
   list-style: none;
 }
 
+.loader-text {
+  margin-top: 1rem;      /* mt-4 */
+  font-size: 1.125rem;   /* text-lg */
+  line-height: 1.75rem;  /* text-lg includes line-height in Tailwind */
+  color: #4b5563;        /* text-gray-600 */
+}
+
+
 .horizontal {
   display: flex;
   flex-direction: row;

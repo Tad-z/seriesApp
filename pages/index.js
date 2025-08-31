@@ -7,29 +7,45 @@ import axios from "axios";
 import styles from "../styles/Home.module.css";
 import { CaretDown, CaretUp } from "phosphor-react";
 
-export async function getServerSideProps({ query }) {
-  try {
-    const page = Number(query.page) || 1;
-
-    const defaultEndpoint = `https://seriesapi-kcln.onrender.com/series/page?page=${page}`;
-
-    const res = await axios.get(defaultEndpoint);
-
-    if (res.status !== 200) {
-      throw new Error('Failed to fetch data from the API.');
+// ==============================
+// Retry fetch util
+// ==============================
+async function fetchWithRetry(url, retries = 8, delay = 4000) {
+  for (let i = 0; i < retries; i++) {
+    try {
+      const res = await axios.get(url);
+      if (res.status !== 200) throw new Error(`HTTP ${res.status}`);
+      return res.data;
+    } catch (err) {
+      if (i < retries - 1) {
+        await new Promise((res) => setTimeout(res, delay));
+      } else {
+        throw err;
+      }
     }
-    const data = res.data;
-
-    return { props: { page, data } };
-  } catch (error) {
-    console.error('Error fetching data:', error);
-    return { props: { page: 1, data: [] } };
   }
 }
 
+export async function getServerSideProps({ query }) {
+  const page = Number(query.page) || 1;
+  const defaultEndpoint = `https://seriesapi-kcln.onrender.com/series/page?page=${page}`;
+
+  let data = { result: {} };
+
+  try {
+    data = await fetchWithRetry(defaultEndpoint);
+  } catch (error) {
+    console.error("Backend not ready:", error.message);
+    // Fallback to empty data so frontend can show loader
+  }
+
+  return { props: { page, data } };
+}
+
+
 export default function Home({ data, page }) {
   const { result = [] } = data || {};
-  const series = result.series;
+  const series = result.series || [];
   const [isExpanded, setIsExpanded] = useState(false);
   const [isExpandedd, setIsExpandedd] = useState(false);
   const [option, setOption] = useState(undefined);
@@ -110,7 +126,19 @@ export default function Home({ data, page }) {
 
   }, [option]);
 
-  // const genreSeries = data.seriesByGenre;
+    // ==============================
+  // Loader if API hasn't returned yet
+  // ==============================
+  if ((!series || series.length === 0) && !genreSeries.length && !statusSeries.length) {
+    return (
+      <div className="loader-container">
+        <DotLoader color='white' size={80} />
+        <p className={styles.loader-text}>
+          Waking up server... please wait ☕
+        </p>
+      </div>
+    );
+  }
 
   return (
     <>

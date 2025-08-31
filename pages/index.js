@@ -258,7 +258,8 @@ export default function Home({ data, page }) {
               genreSeries !== null &&
               Object.keys(genreSeries).length > 0
               ? genreSeries.map((seriess) => {
-                const { _id, image, name, genre, FavCast, status, link } = series;
+                console.log("ser", seriess);
+                const { _id, image, name, genre, FavCast, status, link } = seriess;
 
                 // Capitalize the first letter of each word in the name
                 const arr = name.split(" ");
